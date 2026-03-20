@@ -1,0 +1,197 @@
+---
+import Layout from "@layouts/Layout.astro";
+import { Image } from "astro:assets";
+---
+
+<Layout title="Afiliación | ATUNLu" isOpaque={true}>
+    <main class="pt-20">
+        <!-- Hero Section -->
+        <section class="relative py-24 bg-atunlu-navy overflow-hidden">
+            <div class="absolute inset-0 opacity-10">
+                <div
+                    class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(37,99,235,0.4),transparent_70%)]"
+                >
+                </div>
+            </div>
+            <div class="max-w-7xl mx-auto px-6 relative z-10 text-center">
+                <div
+                    class="inline-block w-20 h-1.5 bg-atunlu-blue rounded-full mb-8 reveal"
+                >
+                </div>
+                <h1
+                    class="text-5xl md:text-7xl font-black text-white leading-[1.1] tracking-tight mb-6 reveal"
+                >
+                    Cómo afiliarse
+                </h1>
+                <p
+                    class="text-xl text-blue-100/80 max-w-2xl mx-auto leading-relaxed reveal text-pretty"
+                >
+                    Sumate al sindicato que defiende tus derechos y trabaja por
+                    un futuro mejor para todos.
+                </p>
+            </div>
+        </section>
+
+        <!-- Main Content -->
+        <section class="py-32 bg-white">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-start">
+                    <!-- Left Column: Vision/Message -->
+                    <div class="space-y-10 reveal">
+                        <div class="prose prose-xl prose-slate">
+                            <h2
+                                class="text-4xl font-extrabold text-atunlu-navy leading-tight"
+                            >
+                                Compañera/o, aquí compartimos valores,
+                                ideales...
+                            </h2>
+                            <p class="text-gray-600 leading-relaxed text-lg">
+                                ...pero sobre todo una visión de la sociedad en
+                                la que se reconocen los derechos de los
+                                trabajadores en un entorno de estabilidad,
+                                equilibrio y justicia para todas y todos.
+                            </p>
+                            <p
+                                class="text-gray-600 leading-relaxed text-lg font-medium"
+                            >
+                                Por eso nos sindicalizamos y actuamos
+                                colectivamente en beneficio de todos los
+                                trabajadores.
+                            </p>
+                            <div
+                                class="bg-atunlu-lightBlue/30 p-8 rounded-3xl border-l-8 border-atunlu-blue mt-12"
+                            >
+                                <p
+                                    class="text-xl text-atunlu-navy font-bold italic leading-relaxed"
+                                >
+                                    "En la unidad, la solidaridad y la
+                                    organización radica la fuerza de cada uno y
+                                    de todos nosotros."
+                                </p>
+                            </div>
+                            <p class="text-xl font-bold text-atunlu-blue mt-12">
+                                Este espacio también es tuyo, y te estamos
+                                esperando.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Info & Steps -->
+                    <div
+                        class="bg-gray-50 p-10 md:p-16 rounded-[2.5rem] border border-gray-100 shadow-sm reveal"
+                    >
+                        <h3
+                            class="text-3xl font-black text-atunlu-navy mb-8 flex items-center gap-4"
+                        >
+                            <i class="ph ph-info text-atunlu-blue"></i>
+                            Información Importante
+                        </h3>
+
+                        <div class="space-y-8">
+                            <div class="flex gap-6">
+                                <div
+                                    class="w-12 h-12 rounded-2xl bg-atunlu-blue/10 flex items-center justify-center shrink-0"
+                                >
+                                    <i
+                                        class="ph ph-hand-coins text-2xl text-atunlu-blue"
+                                    ></i>
+                                </div>
+                                <div>
+                                    <h4
+                                        class="font-bold text-atunlu-navy text-xl mb-2"
+                                    >
+                                        Cuota Sindical
+                                    </h4>
+                                    <p class="text-gray-600 leading-relaxed">
+                                        El valor de la cuota sindical es del <span
+                                            class="font-bold text-atunlu-blue"
+                                            >2% del salario</span
+                                        > y se descuenta automáticamente de los haberes.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="flex gap-6">
+                                <div
+                                    class="w-12 h-12 rounded-2xl bg-atunlu-blue/10 flex items-center justify-center shrink-0"
+                                >
+                                    <i
+                                        class="ph ph-file-text text-2xl text-atunlu-blue"
+                                    ></i>
+                                </div>
+                                <div>
+                                    <h4
+                                        class="font-bold text-atunlu-navy text-xl mb-2"
+                                    >
+                                        Trámite de Afiliación
+                                    </h4>
+                                    <p
+                                        class="text-gray-600 leading-relaxed mb-6"
+                                    >
+                                        Para afiliarse es necesario completar un
+                                        formulario en nuestras oficinas o
+                                        descargándolo previamente desde aquí.
+                                    </p>
+
+                                    <div
+                                        class="flex flex-col sm:flex-row gap-4"
+                                    >
+                                        <a
+                                            href="#"
+                                            class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-atunlu-blue text-white font-bold rounded-2xl hover:bg-atunlu-navy transition-all shadow-lg hover:shadow-xl btn-shine"
+                                        >
+                                            <i
+                                                class="ph ph-download-simple text-xl"
+                                            ></i>
+                                            Descargar Formulario
+                                        </a>
+                                        <a
+                                            href="/#contacto"
+                                            class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-atunlu-navy font-bold rounded-2xl border-2 border-atunlu-navy/10 hover:border-atunlu-blue/20 hover:bg-gray-50 transition-all shadow-sm"
+                                        >
+                                            Nuestras Oficinas
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div
+                                class="flex gap-6 pt-6 border-t border-gray-200/50"
+                            >
+                                <div
+                                    class="w-12 h-12 rounded-2xl bg-atunlu-navy/5 flex items-center justify-center shrink-0"
+                                >
+                                    <i
+                                        class="ph ph-check-circle text-2xl text-atunlu-navy/40"
+                                    ></i>
+                                </div>
+                                <p
+                                    class="text-sm text-gray-500 italic leading-relaxed"
+                                >
+                                    Luego de completar el formulario, acercate
+                                    al gremio para poner curso al pedido de
+                                    afiliación.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section
+            class="py-24 bg-atunlu-lightBlue/20 border-y border-atunlu-blue/10"
+        >
+            <div class="max-w-4xl mx-auto px-6 text-center reveal">
+                <h2 class="text-3xl font-extrabold text-atunlu-navy mb-8">
+                    ¿Tenés dudas?
+                </h2>
+                <p class="text-xl text-gray-600 mb-10">
+                    Estamos para ayudarte en cada paso del proceso. No dudes en
+                    consultarnos por cualquier canal de comunicación.
+                </p>
+            </div>
+        </section>
+    </main>
+</Layout>

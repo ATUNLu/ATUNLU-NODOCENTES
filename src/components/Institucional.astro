@@ -1,0 +1,74 @@
+---
+import { Image } from "astro:assets";
+import institucionalImage from "../assets/images/institucional/institucional.jpg";
+---
+
+<section id="institucional" class="py-32 bg-white reveal">
+    <div
+        class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center"
+    >
+        <div class="relative group">
+            <div
+                class="rounded-3xl overflow-hidden shadow-2xl transition-transform duration-700 group-hover:scale-[1.02]"
+            >
+                <Image
+                    src={institucionalImage}
+                    alt="Institucional ATUNLU"
+                    class="w-full h-auto"
+                />
+            </div>
+            <div
+                class="absolute -bottom-8 -right-8 bg-atunlu-navy text-white p-10 rounded-3xl shadow-2xl hidden md:block max-w-75 border border-white/10"
+            >
+                <p class="text-3xl font-black mb-2 italic">
+                    "Unidos, solidarios y organizados"
+                </p>
+            </div>
+        </div>
+
+        <div class="space-y-8">
+            <div class="inline-block w-20 h-1.5 bg-atunlu-blue rounded-full">
+            </div>
+            <h2
+                class="text-5xl font-extrabold text-atunlu-navy leading-[1.1] tracking-tight"
+            >
+                Más de 40 años defendiendo la Educación Pública.
+            </h2>
+            <p class="text-xl text-gray-500 leading-relaxed">
+                Somos el sindicato que nuclea a los trabajadores y trabajadoras
+                de la UNLu, trabajando por la dignidad, el respeto y el
+                crecimiento constante de nuestra comunidad.
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 pt-4">
+                <a
+                    href="/historia"
+                    class="p-6 rounded-2xl bg-gray-50 hover:bg-atunlu-lightBlue transition-all group block border border-transparent hover:border-atunlu-blue/20 shadow-sm hover:shadow-md"
+                >
+                    <i
+                        class="ph ph-arrow-down-right text-3xl text-atunlu-blue mb-4 transition-transform group-hover:scale-110"
+                    ></i>
+                    <h4 class="font-bold text-atunlu-navy text-lg">Historia</h4>
+                    <p class="text-sm text-gray-500 mt-2 leading-relaxed">
+                        Conoce nuestra trayectoria y la lucha por los derechos
+                        de las y los trabajadores nodocentes.
+                    </p>
+                </a>
+                <a
+                    href="/autoridades"
+                    class="p-6 rounded-2xl bg-gray-50 hover:bg-atunlu-lightBlue transition-all group block border border-transparent hover:border-atunlu-blue/20 shadow-sm hover:shadow-md"
+                >
+                    <i
+                        class="ph ph-arrow-down-right text-3xl text-atunlu-blue mb-4 transition-transform group-hover:scale-110"
+                    ></i>
+                    <h4 class="font-bold text-atunlu-navy text-lg">
+                        Autoridades
+                    </h4>
+                    <p class="text-sm text-gray-500 mt-2 leading-relaxed">
+                        Conoce a quienes integran la conducción actual de
+                        nuestro sindicato.
+                    </p>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>

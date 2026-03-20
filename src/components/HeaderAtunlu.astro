@@ -1,0 +1,453 @@
+---
+import atunlu from "../assets/images/iconos/atunlu.svg";
+import atunluPleno from "../assets/images/iconos/atunlu-pleno.svg";
+
+interface Props {
+    isOpaque?: boolean;
+}
+
+const { isOpaque = false } = Astro.props;
+
+const menuItems = [
+    { label: "Novedades", href: "/#novedades" },
+    {
+        label: "Institucional",
+        href: "/#institucional",
+        submenu: [
+            { label: "Autoridades", href: "/autoridades" },
+            { label: "Historia", href: "/historia" },
+        ],
+    },
+    {
+        label: "Servicios",
+        href: "/#servicios",
+        submenu: [
+            { label: "Beneficios", href: "/#servicios" },
+            { label: "Convenios", href: "/#servicios" },
+            { label: "Cultura", href: "/#servicios" },
+            { label: "Deporte", href: "/#servicios" },
+            { label: "Predio", href: "/#servicios" },
+            { label: "Turismo", href: "/#servicios" },
+        ],
+    },
+    { label: "Capacitación", href: "/#capacitacion" },
+    { label: "Paritarias", href: "/#paritarias" },
+    { label: "Galería", href: "/#galeria" },
+    { label: "Contacto", href: "/#contacto" },
+];
+---
+
+<nav
+    class:list={[
+        "fixed w-full top-0 z-50 transition-all duration-500 h-24 flex items-center border-b",
+        isOpaque
+            ? "bg-white border-gray-100 shadow-xl shadow-black/5 h-20"
+            : "bg-transparent border-transparent",
+    ]}
+    data-opaque={isOpaque}
+>
+    <div
+        class="max-w-7xl mx-auto px-6 w-full flex justify-between items-center"
+    >
+        <a href="/" class="flex items-center gap-2 group cursor-pointer">
+            <div id="nav-logo" class="relative w-40 h-12 overflow-hidden">
+                <img
+                    src={atunluPleno.src}
+                    alt="ATUNLu Logo Pleno"
+                    id="logo-pleno"
+                    class:list={[
+                        "absolute inset-0 w-full h-full object-contain transition-all duration-500",
+                        isOpaque ? "opacity-0 -translate-y-2" : "opacity-100",
+                    ]}
+                />
+                <img
+                    src={atunlu.src}
+                    alt="ATUNLu Logo"
+                    id="logo-normal"
+                    class:list={[
+                        "absolute inset-0 w-full h-full object-contain transition-all duration-500",
+                        isOpaque ? "opacity-100" : "opacity-0 translate-y-2",
+                    ]}
+                />
+            </div>
+        </a>
+
+        <!-- Desktop menu -->
+        <div class="hidden min-[1200px]:flex items-center gap-4">
+            {
+                menuItems.map((item) =>
+                    item.submenu ? (
+                        <div class="relative group" data-dropdown>
+                            <a
+                                href={item.href}
+                                class:list={[
+                                    "nav-link text-sm font-semibold transition-all px-2 py-2 rounded-lg flex items-center gap-1",
+                                    isOpaque
+                                        ? "text-gray-600 hover:bg-atunlu-blue hover:text-white"
+                                        : "text-white/80 hover:bg-white/10 hover:text-white",
+                                ]}
+                            >
+                                {item.label}
+                                <i class="ph ph-caret-down text-xs transition-transform group-hover:rotate-180 dropdown-caret" />
+                            </a>
+                            <div
+                                class:list={[
+                                    "nav-dropdown absolute left-0 mt-1 w-48 rounded-xl shadow-2xl border opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-300 overflow-hidden z-60",
+                                    isOpaque
+                                        ? "bg-white border-gray-100"
+                                        : "bg-atunlu-navy/95 border-white/10 backdrop-blur-md",
+                                ]}
+                            >
+                                {item.submenu.map((sub, index) => (
+                                    <a
+                                        href={sub.href}
+                                        class:list={[
+                                            "nav-link block px-4 py-3 text-sm transition-colors",
+                                            index > 0 ? "border-t" : "",
+                                            isOpaque
+                                                ? "text-gray-600 border-gray-50 hover:bg-atunlu-blue hover:text-white"
+                                                : "text-white/80 border-white/5 hover:bg-white/10 hover:text-white",
+                                        ]}
+                                    >
+                                        {sub.label}
+                                    </a>
+                                ))}
+                            </div>
+                        </div>
+                    ) : (
+                        <a
+                            href={item.href}
+                            class:list={[
+                                "nav-link text-sm font-semibold transition-all px-4 py-2 rounded-lg",
+                                isOpaque
+                                    ? "text-gray-600 hover:bg-atunlu-blue hover:text-white"
+                                    : "text-white/80 hover:bg-white/10 hover:text-white",
+                            ]}
+                        >
+                            {item.label}
+                        </a>
+                    ),
+                )
+            }
+            <a
+                href="/afiliacion"
+                class="btn-shine bg-atunlu-blue text-white ml-2 px-6 py-2.5 rounded-md font-bold text-sm hover:bg-blue-600 transition-all shadow-lg hover:shadow-blue-500/30 inline-block"
+            >
+                Afiliarse
+            </a>
+        </div>
+
+        <!-- Mobile hamburger button -->
+        <button
+            class:list={[
+                "min-[1200px]:hidden text-3xl transition-colors relative z-70",
+                isOpaque ? "text-atunlu-navy" : "text-white",
+            ]}
+            id="mobile-menu-btn"
+            aria-label="Abrir menú"
+            aria-expanded="false"
+        >
+            <i class="ph ph-list" id="icon-open"></i>
+            <i class="ph ph-x hidden" id="icon-close"></i>
+        </button>
+    </div>
+</nav>
+
+<!-- Mobile menu overlay -->
+<div
+    id="mobile-menu"
+    class="fixed inset-0 z-60 min-[1200px]:hidden invisible opacity-0 transition-all duration-300"
+    aria-hidden="true"
+>
+    <!-- Backdrop -->
+    <div
+        id="mobile-backdrop"
+        class="absolute inset-0 bg-black/50 backdrop-blur-sm"
+    >
+    </div>
+
+    <!-- Drawer panel -->
+    <div
+        id="mobile-panel"
+        class="absolute top-0 right-0 h-full w-80 max-w-[85vw] bg-atunlu-navy shadow-2xl translate-x-full transition-transform duration-300 ease-in-out flex flex-col"
+    >
+        <!-- Panel header -->
+        <div
+            class="flex items-center justify-between px-6 h-24 border-b border-white/10 shrink-0"
+        >
+            <span class="text-white font-bold text-lg">Menú</span>
+        </div>
+
+        <!-- Nav items -->
+        <nav class="flex-1 overflow-y-auto py-4 px-4">
+            {
+                menuItems.map((item) =>
+                    item.submenu ? (
+                        <div class="mobile-accordion">
+                            <button class="mobile-accordion-btn w-full flex items-center justify-between px-4 py-3 rounded-lg text-white/80 font-semibold text-sm hover:bg-white/10 hover:text-white transition-colors">
+                                {item.label}
+                                <i class="ph ph-caret-down text-xs transition-transform duration-300" />
+                            </button>
+                            <div class="mobile-accordion-content hidden px-2 pb-1">
+                                {item.submenu.map((sub) => (
+                                    <a
+                                        href={sub.href}
+                                        class="mobile-nav-link flex items-center gap-2 px-4 py-2.5 rounded-lg text-white/60 text-sm hover:bg-white/10 hover:text-white transition-colors"
+                                    >
+                                        <span class="w-1 h-1 rounded-full bg-atunlu-blue inline-block" />
+                                        {sub.label}
+                                    </a>
+                                ))}
+                            </div>
+                        </div>
+                    ) : (
+                        <a
+                            href={item.href}
+                            class="mobile-nav-link flex items-center px-4 py-3 rounded-lg text-white/80 font-semibold text-sm hover:bg-white/10 hover:text-white transition-colors"
+                        >
+                            {item.label}
+                        </a>
+                    ),
+                )
+            }
+        </nav>
+
+        <!-- CTA at bottom -->
+        <div class="px-6 py-6 border-t border-white/10 shrink-0">
+            <a
+                href="/afiliacion"
+                class="mobile-nav-link btn-shine bg-atunlu-blue text-white w-full py-3 rounded-md font-bold text-sm hover:bg-blue-600 transition-all shadow-lg hover:shadow-blue-500/30 text-center block"
+            >
+                Afiliarse
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+    [data-dropdown].dropdown-open .nav-dropdown {
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: translateY(0) !important;
+    }
+</style>
+
+<script>
+    const nav = document.querySelector("nav");
+    const logoPleno = document.getElementById("logo-pleno");
+    const logoNormal = document.getElementById("logo-normal");
+    const links = document.querySelectorAll(".nav-link");
+    const mobileBtn = document.getElementById("mobile-menu-btn");
+    const dropdowns = document.querySelectorAll(".nav-dropdown");
+
+    // Mobile menu elements
+    const mobileMenu = document.getElementById("mobile-menu");
+    const mobilePanel = document.getElementById("mobile-panel");
+    const mobileBackdrop = document.getElementById("mobile-backdrop");
+    const iconOpen = document.getElementById("icon-open");
+    const iconClose = document.getElementById("icon-close");
+
+    // ── Mobile menu toggle ──────────────────────────────────────────────────
+    function openMobileMenu() {
+        if (!mobileMenu || !mobilePanel || !mobileBtn) return;
+
+        mobileMenu.classList.remove("invisible", "opacity-0");
+        mobileMenu.setAttribute("aria-hidden", "false");
+        mobileBtn.setAttribute("aria-expanded", "true");
+
+        // Trigger panel slide-in on next frame
+        requestAnimationFrame(() => {
+            mobilePanel.classList.remove("translate-x-full");
+        });
+
+        iconOpen?.classList.add("hidden");
+        iconClose?.classList.remove("hidden");
+
+        document.body.style.overflow = "hidden";
+    }
+
+    function closeMobileMenu() {
+        if (!mobileMenu || !mobilePanel || !mobileBtn) return;
+
+        mobilePanel.classList.add("translate-x-full");
+        mobileBtn.setAttribute("aria-expanded", "false");
+
+        iconOpen?.classList.remove("hidden");
+        iconClose?.classList.add("hidden");
+
+        // Wait for slide-out animation before hiding
+        setTimeout(() => {
+            mobileMenu.classList.add("invisible", "opacity-0");
+            mobileMenu.setAttribute("aria-hidden", "true");
+        }, 300);
+
+        document.body.style.overflow = "";
+    }
+
+    mobileBtn?.addEventListener("click", () => {
+        const isOpen = mobileBtn.getAttribute("aria-expanded") === "true";
+        isOpen ? closeMobileMenu() : openMobileMenu();
+    });
+
+    // Close on backdrop click
+    mobileBackdrop?.addEventListener("click", closeMobileMenu);
+
+    // Close on nav link click (links without submenus)
+    document.querySelectorAll(".mobile-nav-link").forEach((link) => {
+        link.addEventListener("click", closeMobileMenu);
+    });
+
+    // Close on Escape key
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeMobileMenu();
+    });
+
+    // ── Mobile accordion for submenus ───────────────────────────────────────
+    document.querySelectorAll(".mobile-accordion").forEach((accordion) => {
+        const btn = accordion.querySelector(".mobile-accordion-btn");
+        const content = accordion.querySelector(".mobile-accordion-content");
+        const caret = btn?.querySelector("i");
+
+        btn?.addEventListener("click", () => {
+            const isOpen = !content?.classList.contains("hidden");
+
+            // Close all other accordions
+            document.querySelectorAll(".mobile-accordion").forEach((other) => {
+                if (other !== accordion) {
+                    other
+                        .querySelector(".mobile-accordion-content")
+                        ?.classList.add("hidden");
+                    other
+                        .querySelector(".mobile-accordion-btn i")
+                        ?.classList.remove("rotate-180");
+                }
+            });
+
+            // Toggle current
+            content?.classList.toggle("hidden", isOpen);
+            caret?.classList.toggle("rotate-180", !isOpen);
+        });
+    });
+
+    // ── Desktop dropdown: click support for touch screens ───────────────────
+    document.querySelectorAll("[data-dropdown]").forEach((wrapper) => {
+        const trigger = wrapper.querySelector("a");
+        const dropdown = wrapper.querySelector(".nav-dropdown");
+        const caret = wrapper.querySelector(".dropdown-caret");
+
+        trigger?.addEventListener("click", (e) => {
+            // Only intercept on touch devices (no fine pointer)
+            if (window.matchMedia("(pointer: fine)").matches) return;
+
+            const isOpen = wrapper.classList.contains("dropdown-open");
+
+            if (!isOpen) {
+                // First tap: open dropdown, prevent navigation
+                e.preventDefault();
+
+                // Close all other dropdowns
+                document.querySelectorAll("[data-dropdown]").forEach((other) => {
+                    other.classList.remove("dropdown-open");
+                    other.querySelector(".dropdown-caret")?.classList.remove("rotate-180");
+                });
+
+                wrapper.classList.add("dropdown-open");
+                caret?.classList.add("rotate-180");
+            }
+            // Second tap: dropdown already open → let navigation proceed naturally
+        });
+    });
+
+    // Close desktop dropdowns when clicking outside
+    document.addEventListener("click", (e) => {
+        if (!(e.target as Element).closest("[data-dropdown]")) {
+            document.querySelectorAll("[data-dropdown]").forEach((wrapper) => {
+                wrapper.classList.remove("dropdown-open");
+                wrapper.querySelector(".dropdown-caret")?.classList.remove("rotate-180");
+            });
+        }
+    });
+
+    // ── Desktop nav scroll behavior ─────────────────────────────────────────
+    function updateNav() {
+        if (!nav || !logoPleno || !logoNormal || !mobileBtn) return;
+
+        const isOpaqueDefault = nav.getAttribute("data-opaque") === "true";
+
+        if (window.scrollY > 80 || isOpaqueDefault) {
+            nav.classList.add("nav-scrolled", "shadow-xl", "shadow-black/5");
+            if (isOpaqueDefault) {
+                nav.classList.add("h-20");
+                nav.classList.remove("h-24");
+            }
+
+            logoPleno.classList.replace("opacity-100", "opacity-0");
+            logoPleno.classList.add("-translate-y-2");
+            logoNormal.classList.replace("opacity-0", "opacity-100");
+            logoNormal.classList.remove("translate-y-2");
+
+            links.forEach((l) => {
+                l.classList.remove(
+                    "text-white/80",
+                    "hover:text-white",
+                    "hover:bg-white/10",
+                    "border-white/5",
+                );
+                l.classList.add(
+                    "text-gray-600",
+                    "hover:bg-atunlu-blue",
+                    "hover:text-white",
+                    "border-gray-50",
+                );
+            });
+
+            dropdowns.forEach((d) => {
+                d.classList.remove(
+                    "bg-atunlu-navy/95",
+                    "border-white/10",
+                    "backdrop-blur-md",
+                );
+                d.classList.add("bg-white", "border-gray-100");
+            });
+
+            mobileBtn.classList.replace("text-white", "text-atunlu-navy");
+        } else {
+            nav.classList.remove("nav-scrolled", "shadow-xl", "shadow-black/5");
+
+            logoPleno.classList.replace("opacity-0", "opacity-100");
+            logoPleno.classList.remove("-translate-y-2");
+            logoNormal.classList.replace("opacity-100", "opacity-0");
+            logoNormal.classList.add("translate-y-2");
+
+            links.forEach((l) => {
+                l.classList.remove(
+                    "text-gray-600",
+                    "hover:bg-atunlu-blue",
+                    "hover:text-white",
+                    "border-gray-50",
+                );
+                l.classList.add(
+                    "text-white/80",
+                    "hover:text-white",
+                    "hover:bg-white/10",
+                    "border-white/5",
+                );
+            });
+
+            dropdowns.forEach((d) => {
+                d.classList.remove("bg-white", "border-gray-100");
+                d.classList.add(
+                    "bg-atunlu-navy/95",
+                    "border-white/10",
+                    "backdrop-blur-md",
+                );
+            });
+
+            mobileBtn.classList.replace("text-atunlu-navy", "text-white");
+        }
+    }
+
+    window.addEventListener("scroll", updateNav);
+    window.addEventListener("load", updateNav);
+    document.addEventListener("astro:page-load", updateNav);
+</script>

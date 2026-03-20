@@ -1,0 +1,135 @@
+---
+import fondoDark from "../assets/images/fondos/fondo-dark.svg";
+---
+
+<section id="contacto" class="py-32 bg-atunlu-navy relative z-0">
+    <div class="max-w-7xl mx-auto px-6 reveal relative z-10">
+        <div
+            class="rounded-[3rem] p-8 md:p-20 text-white grid grid-cols-1 lg:grid-cols-2 gap-20 overflow-hidden relative"
+        >
+            <!-- Decoración -->
+            <div
+                class="absolute -top-24 -right-24 w-64 h-64 bg-atunlu-blue/30 rounded-full blur-[80px]"
+            >
+            </div>
+
+            <div class="space-y-12 relative z-10">
+                <div>
+                    <h2 class="text-4xl font-extrabold mb-6">
+                        Siempre en contacto
+                    </h2>
+                    <p class="text-blue-100/60 text-xl leading-relaxed">
+                        ¿Dudas sobre afiliaciones o servicios?
+                    </p>
+                </div>
+
+                <div class="space-y-8">
+                    <div class="flex items-center gap-6 group">
+                        <div
+                            class="w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center text-atunlu-blue group-hover:bg-white transition-colors duration-300"
+                        >
+                            <i class="ph ph-envelope-simple text-2xl"></i>
+                        </div>
+                        <div>
+                            <p
+                                class="text-sm font-bold text-blue-200 uppercase tracking-widest"
+                            >
+                                Escríbenos
+                            </p>
+                            <p class="text-lg font-bold">info@atunlu.org.ar</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-6 group">
+                        <div
+                            class="w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center text-atunlu-blue group-hover:bg-white transition-colors duration-300"
+                        >
+                            <i class="ph ph-phone-call text-2xl"></i>
+                        </div>
+                        <div>
+                            <p
+                                class="text-sm font-bold text-blue-200 uppercase tracking-widest"
+                            >
+                                Llámanos
+                            </p>
+                            <p class="text-lg font-bold">+54 2323 536915</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-6 group">
+                        <div
+                            class="w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center text-atunlu-blue group-hover:bg-white transition-colors duration-300"
+                        >
+                            <i class="ph ph-clock text-2xl"></i>
+                        </div>
+                        <div>
+                            <p
+                                class="text-sm font-bold text-blue-200 uppercase tracking-widest"
+                            >
+                                Horario de atención
+                            </p>
+                            <p class="text-lg font-bold">
+                                Lunes a Viernes 08:00 - 16:00
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                class="bg-white rounded-3xl p-10 text-gray-900 relative z-10 shadow-2xl"
+            >
+                <form class="space-y-6">
+                    <div class="space-y-2">
+                        <label
+                            class="text-xs font-black uppercase text-gray-400 tracking-wider"
+                            >Nombre Completo</label
+                        >
+                        <input
+                            type="text"
+                            class="w-full px-5 py-4 bg-gray-50 border-none rounded-2xl focus:ring-2 focus:ring-atunlu-blue transition-all"
+                            placeholder="Ej: Nombre Apellido"
+                        />
+                    </div>
+                    <div class="space-y-2">
+                        <label
+                            class="text-xs font-black uppercase text-gray-400 tracking-wider"
+                            >Email Institucional o Personal</label
+                        >
+                        <input
+                            type="email"
+                            class="w-full px-5 py-4 bg-gray-50 border-none rounded-2xl focus:ring-2 focus:ring-atunlu-blue transition-all"
+                            placeholder="afiliado@mail.com"
+                        />
+                    </div>
+                    <div class="space-y-2">
+                        <label
+                            class="text-xs font-black uppercase text-gray-400 tracking-wider"
+                            >Mensaje</label
+                        >
+                        <textarea
+                            rows="4"
+                            class="w-full px-5 py-4 bg-gray-50 border-none rounded-2xl focus:ring-2 focus:ring-atunlu-blue transition-all"
+                            placeholder="¿Cómo podemos ayudarte?"></textarea>
+                    </div>
+                    <button
+                        class="btn-shine w-full py-5 bg-atunlu-blue text-white font-black rounded-2xl shadow-xl hover:shadow-blue-500/40 transition-all uppercase tracking-widest text-sm"
+                    >
+                        Enviar Consulta
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fondo SVG inferior -->
+    <div
+        class="absolute bottom-0 left-0 w-full pointer-events-none z-0"
+        style="line-height: 0;"
+    >
+        <img
+            src={fondoDark.src}
+            alt=""
+            aria-hidden="true"
+            class="w-full block"
+        />
+    </div>
+</section>

@@ -1,0 +1,175 @@
+---
+import fondoDark from "../assets/images/fondos/fondo-dark.svg";
+const members = [
+    {
+        name: "RAMOS, JUAN EDUARDO",
+        role: "Secretaría General",
+        image: "",
+    },
+    {
+        name: "VILLA, DANIEL MARCOS",
+        role: "Secretaria Adjunta",
+        image: "",
+    },
+    {
+        name: "LLUCCI, MAXIMILIANO HUGO",
+        role: "Secretaria Gremial",
+        image: "",
+    },
+    {
+        name: "VIERA, YARA SABRINA",
+        role: "Secretaria de Hacienda y Finanzas",
+        image: "",
+    },
+    {
+        name: "MARAZZO, MARÍA BETINA",
+        role: "Secretaria de Actas",
+        image: "",
+    },
+    {
+        name: "GONZÁLEZ BAEZ, SONIA GISELA",
+        role: "Secretaria Administrativa",
+        image: "",
+    },
+    {
+        name: "MALDONADO, MARÍA CECILIA",
+        role: "Secretaría de Prensa y Difusión",
+        image: "",
+    },
+    {
+        name: "TORRES, MATÍAS ALBERTO",
+        role: "Subsecretaría de Prensa y Difusión",
+        image: "",
+    },
+    {
+        name: "SUÁREZ, GUADALUPE JAQUELINA",
+        role: "Secretaria de Cultura, Deportes y Recreación",
+        image: "",
+    },
+    {
+        name: "LÓPEZ, SONIA KARINA",
+        role: "Secretaria de Capacitación y Formación Profesional",
+        image: "",
+    },
+    {
+        name: "GONZÁLEZ, ANA LAURA",
+        role: "Subsecretaria de Capacitación y Formación Profesional",
+        image: "",
+    },
+    {
+        name: "GIORGIO, MARÍA EUGENIA",
+        role: "Secretaria de Derechos Humanos",
+        image: "",
+    },
+    {
+        name: "GONZÁLEZ, SANDRO AGUSTIN",
+        role: "Secretaria de Relaciones Institucionales",
+        image: "",
+    },
+    {
+        name: "LEAL RAMIRO-GERMAN",
+        role: "Secretaria de Juventud",
+        image: "",
+    },
+    {
+        name: "MIRANDA, JOSÉ LUIS",
+        role: "Secretaria de Turismo y Acción social",
+        image: "",
+    },
+    {
+        name: "MAGGIOLO, CONSUELO",
+        role: "Secretaria de Género",
+        image: "",
+    },
+    {
+        name: "VELTRI, MARÍA GABRIELA",
+        role: "Secretaria de Organización",
+        image: "",
+    },
+];
+---
+
+<section
+    id="comision-directiva"
+    class="py-32 bg-atunlu-navy text-white overflow-hidden relative z-0"
+>
+    <div class="max-w-7xl mx-auto px-6 reveal relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+            <!-- Header Content -->
+            <div class="lg:col-span-4 space-y-6">
+                <h2
+                    class="text-5xl font-extrabold tracking-tight leading-tight"
+                >
+                    Comisión Directiva
+                </h2>
+                <p
+                    class="text-atunlu-lightBlue/70 text-lg font-medium leading-relaxed max-w-md"
+                >
+                    Un equipo comprometido con la defensa de los derechos de las
+                    y los trabajadores nodocentes de la UNLu.
+                </p>
+            </div>
+
+            <!-- Grid de Miembros -->
+            <div
+                class="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-16"
+            >
+                {
+                    members.map((member, index) => (
+                        <div
+                            class="flex items-center gap-6 reveal group"
+                            style={`transition-delay: ${index * 75}ms;`}
+                        >
+                            <div class="relative shrink-0">
+                                {member.image ? (
+                                    <img
+                                        src={member.image}
+                                        alt={member.name}
+                                        class="w-20 h-20 rounded-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 border-2 border-transparent group-hover:border-atunlu-blue"
+                                    />
+                                ) : (
+                                    <div class="w-20 h-20 rounded-full border-2 border-atunlu-blue flex items-center justify-center bg-atunlu-navy/50 group-hover:bg-atunlu-blue/10 transition-all duration-500">
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            class="w-8 h-8 text-atunlu-blue/40 group-hover:text-atunlu-blue transition-colors"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            stroke-width="1.5"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        >
+                                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                            <circle cx="12" cy="7" r="4" />
+                                        </svg>
+                                    </div>
+                                )}
+                            </div>
+                            <div class="space-y-1">
+                                <h3 class="text-xl font-bold tracking-tight group-hover:text-atunlu-lightBlue transition-colors">
+                                    {member.name}
+                                </h3>
+                                <p class="text-atunlu-blue font-bold text-sm uppercase tracking-wider">
+                                    {member.role}
+                                </p>
+                            </div>
+                        </div>
+                    ))
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- Fondo SVG inferior -->
+    <div
+        class="absolute bottom-0 left-0 w-full pointer-events-none z-0"
+        style="line-height: 0;"
+    >
+        <img
+            src={fondoDark.src}
+            alt=""
+            aria-hidden="true"
+            class="w-full block"
+        />
+    </div>
+</section>

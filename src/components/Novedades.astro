@@ -1,0 +1,70 @@
+---
+import { getCollection } from "astro:content";
+import NovedadCard from "./NovedadCard.astro";
+import fondoNovedad from "../assets/images/fondos/fondo-novedad.svg";
+
+const allNovedades = await getCollection("novedades", ({ data }) => {
+    return data.draft !== true;
+});
+
+// Ordenar por fecha descendente y tomar las últimas 3
+const latestNovedades = allNovedades
+    .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+    .slice(0, 3);
+---
+
+<section
+    id="novedades"
+    class="relative py-20 bg-slate-200 scroll-mt-5 overflow-hidden"
+>
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="flex justify-between items-end mb-16 reveal">
+            <div class="space-y-4">
+                <h2
+                    class="text-5xl font-extrabold text-atunlu-navy tracking-tight"
+                >
+                    Últimas Novedades
+                </h2>
+                <p class="text-gray-500 font-medium text-xl">
+                    Toda la información sindical al día.
+                </p>
+            </div>
+            <a
+                href="/ultimas-novedades"
+                class="hidden md:flex items-center gap-2 text-atunlu-blue font-bold hover:gap-4 transition-all"
+                >Ver todas <i class="ph ph-caret-right"></i></a
+            >
+        </div>
+
+        <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6">
+            {
+                latestNovedades[0] && (
+                    <div class="lg:col-span-8">
+                        <NovedadCard
+                            novedad={latestNovedades[0]}
+                            index={0}
+                            isFeatured={true}
+                        />
+                    </div>
+                )
+            }
+            <div class="lg:col-span-4 flex flex-col gap-6">
+                {
+                    latestNovedades
+                        .slice(1)
+                        .map((novedad, index) => (
+                            <NovedadCard novedad={novedad} index={index + 1} />
+                        ))
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- SVG decorativo: ocupa todo el ancho, pegado al fondo de la sección -->
+    <img
+        src={fondoNovedad.src}
+        alt=""
+        aria-hidden="true"
+        class="absolute bottom-0 left-0 w-full pointer-events-none select-none"
+    />
+</section>

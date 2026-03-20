@@ -1,0 +1,93 @@
+---
+import { getCollection, render } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import { Image } from "astro:assets";
+
+export async function getStaticPaths() {
+    const novedades = await getCollection("novedades");
+    return novedades.map((entry) => ({
+        params: { slug: entry.id },
+        props: { entry },
+    }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+
+const formatDate = (date: Date) => {
+    return date.toLocaleDateString("es-ES", {
+        day: "2-digit",
+        month: "long",
+        year: "numeric",
+    });
+};
+---
+
+<Layout title={`${entry.data.title} | Novedades | ATUNLu`} isOpaque={true}>
+    <article class="pt-32 pb-20 bg-slate-200 min-h-screen">
+        <div class="max-w-4xl mx-auto px-6">
+            <a
+                href="/#novedades"
+                class="inline-flex items-center gap-2 text-atunlu-blue font-bold mb-8 hover:gap-4 transition-all"
+            >
+                <i class="ph ph-caret-left"></i> Volver a novedades
+            </a>
+
+            <div
+                class="bg-white rounded-[2.5rem] overflow-hidden shadow-sm border border-gray-100"
+            >
+                <div class="h-[400px] overflow-hidden relative">
+                    <Image
+                        src={entry.data.image}
+                        class="w-full h-full object-cover"
+                        alt={entry.data.imageAlt}
+                    />
+                    <span
+                        class="absolute bottom-10 left-10 bg-atunlu-blue text-white px-6 py-2 rounded-full text-sm font-black uppercase"
+                    >
+                        {entry.data.category}
+                    </span>
+                </div>
+
+                <div class="p-10 md:p-16">
+                    <time class="text-sm font-bold text-gray-400 block mb-4">
+                        {formatDate(entry.data.date)}
+                    </time>
+
+                    <h1
+                        class="text-4xl md:text-5xl font-extrabold text-atunlu-navy mb-8 leading-tight"
+                    >
+                        {entry.data.title}
+                    </h1>
+
+                    {
+                        entry.data.author && (
+                            <div class="flex items-center gap-4 mb-12 pb-8 border-b border-gray-100">
+                                <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center text-atunlu-navy">
+                                    <i class="ph ph-user text-2xl" />
+                                </div>
+                                <div>
+                                    <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">
+                                        Autor
+                                    </p>
+                                    <p class="font-bold text-atunlu-navy">
+                                        {entry.data.author}
+                                    </p>
+                                </div>
+                            </div>
+                        )
+                    }
+
+                    <div
+                        class="prose prose-lg prose-slate max-w-none
+                        prose-headings:text-atunlu-navy prose-headings:font-bold
+                        prose-a:text-atunlu-blue prose-strong:text-atunlu-navy
+                        prose-custom"
+                    >
+                        <Content />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+</Layout>

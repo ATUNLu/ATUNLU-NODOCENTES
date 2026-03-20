@@ -1,0 +1,123 @@
+---
+import { Image } from "astro:assets";
+import atunluPleno from "../assets/images/iconos/atunlu-pleno.svg";
+import fatunFooter from "../assets/images/iconos/fatun-footer.png";
+const footerSections = [
+    {
+        title: "Sindicato",
+        links: [
+            { label: "Afiliación", href: "/afiliacion" },
+            { label: "Convenio Colectivo", href: "/" },
+            { label: "Escala Salarial", href: "/" },
+            { label: "Institucional", href: "/#institucional" },
+            { label: "Normativa", href: "/" },
+        ],
+    },
+    {
+        title: "Sedes",
+        links: [
+            { label: "Sede Luján", href: "#" },
+            { label: "Sede San Miguel", href: "#" },
+            { label: "Centro Regional Campana", href: "#" },
+            { label: "Chivilcoy", href: "#" },
+        ],
+    },
+];
+
+const socialLinks = [
+    { icon: "ph ph-instagram-logo", href: "#" },
+    { icon: "ph ph-facebook-logo", href: "#" },
+    { icon: "ph ph-twitter-logo", href: "#" },
+];
+---
+
+<footer class="bg-atunlu-dark text-white pt-24 pb-12 mt-auto">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-16 mb-20">
+            <div class="space-y-8">
+                <div class="flex items-center gap-6">
+                    <a href="/" class="block">
+                        <img
+                            src={atunluPleno.src}
+                            alt="ATUNLu Logo"
+                            class="h-12 w-auto"
+                        />
+                    </a>
+                    <a href="https://www.fatun.org.ar/" target="_blank">
+                        <Image
+                            src={fatunFooter}
+                            alt="FATUN Logo"
+                            class="h-22 w-auto object-contain"
+                        />
+                    </a>
+                </div>
+                <p class="text-gray-400 leading-relaxed font-medium">
+                    Trabajando por la dignidad de los trabajadores y
+                    trabajadoras de la Universidad Nacional de Luján.
+                </p>
+                <div class="flex gap-4">
+                    {
+                        socialLinks.map((social) => (
+                            <a
+                                href={social.href}
+                                class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center hover:bg-atunlu-blue transition-all duration-300"
+                            >
+                                <i class={`${social.icon} text-xl`} />
+                            </a>
+                        ))
+                    }
+                </div>
+            </div>
+
+            {
+                footerSections.map((section) => (
+                    <div>
+                        <h4 class="font-black text-sm uppercase tracking-[0.2em] mb-8 text-atunlu-blue">
+                            {section.title}
+                        </h4>
+                        <ul class="space-y-4 text-gray-400 font-medium">
+                            {section.links.map((link) => (
+                                <li>
+                                    <a
+                                        href={link.href}
+                                        class="hover:text-white transition-colors"
+                                    >
+                                        {link.label}
+                                    </a>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                ))
+            }
+
+            <div>
+                <h4
+                    class="font-black text-sm uppercase tracking-[0.2em] mb-8 text-atunlu-blue"
+                >
+                    Ubicación
+                </h4>
+                <div class="bg-white/5 p-6 rounded-3xl border border-white/10">
+                    <p class="text-sm leading-relaxed text-gray-300">
+                        Cruce de Rutas Nacionales 5 y 7. Luján, Buenos Aires,
+                        Argentina.
+                    </p>
+                    <a
+                        href="#"
+                        class="inline-block mt-4 text-xs font-black text-atunlu-blue uppercase tracking-widest hover:text-white transition-colors"
+                        >Ver en Google Maps</a
+                    >
+                </div>
+            </div>
+        </div>
+
+        <div
+            class="pt-12 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] font-black tracking-[0.3em] text-gray-600"
+        >
+            <p>
+                © 2026 ATUNLu - Asociación de Trabajadoras y Trabajadores de la
+                UNLu
+            </p>
+        </div>
+    </div>
+</footer>

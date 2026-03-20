@@ -1,0 +1,102 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../../layouts/Layout.astro";
+import NovedadCard from "../../../components/NovedadCard.astro";
+
+export async function getStaticPaths({ paginate }) {
+    const allNovedades = await getCollection("novedades", ({ data }) => {
+        return data.draft !== true;
+    });
+
+    const sortedNovedades = allNovedades.sort(
+        (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+    );
+
+    const paths = paginate(sortedNovedades, { pageSize: 9 });
+    // Skip page 1 as it's handled by /ultimas-novedades/index.astro
+    return paths.filter((p) => p.params.page !== 1 && p.params.page !== "1");
+}
+
+const { page } = Astro.props;
+
+// Adjust URLs for the first page
+const prevUrl = page.currentPage === 2 ? "/ultimas-novedades" : page.url.prev;
+---
+
+<Layout
+    title={`Página ${page.currentPage} | Últimas Novedades | ATUNLu`}
+    isOpaque={true}
+>
+    <section class="py-32 bg-slate-200 min-h-screen">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="mb-16 reveal active">
+                <a
+                    href="/ultimas-novedades"
+                    class="inline-flex items-center gap-2 text-atunlu-blue font-bold mb-8 hover:-translate-x-2 transition-transform"
+                >
+                    <i class="ph ph-caret-left"></i> Volver a la primera página
+                </a>
+                <h1
+                    class="text-6xl font-extrabold text-atunlu-navy tracking-tight mb-4"
+                >
+                    Últimas Novedades
+                </h1>
+                <p class="text-xl text-gray-500 font-medium max-w-2xl">
+                    Página {page.currentPage} de {page.lastPage}
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                {
+                    page.data.map((novedad, index) => (
+                        <NovedadCard novedad={novedad} index={index} />
+                    ))
+                }
+            </div>
+
+            <div
+                class="mt-20 flex justify-center items-center gap-8 reveal active"
+            >
+                {
+                    prevUrl && (
+                        <a
+                            href={prevUrl}
+                            class="flex items-center gap-2 px-8 py-4 bg-white rounded-full text-atunlu-navy font-bold border border-gray-100 shadow-sm hover:shadow-md transition-all"
+                        >
+                            <i class="ph ph-caret-left" /> Anterior
+                        </a>
+                    )
+                }
+
+                <span class="text-gray-400 font-bold">
+                    Página <span class="text-atunlu-navy"
+                        >{page.currentPage}</span
+                    > de {page.lastPage}
+                </span>
+
+                {
+                    page.url.next && (
+                        <a
+                            href={page.url.next}
+                            class="flex items-center gap-2 px-8 py-4 bg-atunlu-navy rounded-full text-white font-bold shadow-lg shadow-atunlu-navy/20 hover:scale-105 transition-all"
+                        >
+                            Siguiente <i class="ph ph-caret-right" />
+                        </a>
+                    )
+                }
+            </div>
+        </div>
+    </section>
+</Layout>
+
+<style>
+    .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s ease-out;
+    }
+    .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+    }
+</style>

@@ -1,0 +1,159 @@
+---
+const servicios = [
+    {
+        title: "Turismo",
+        icon: "ph ph-airplane-tilt",
+        description:
+            "Accedé a nuestros hoteles en las mejores plazas turísticas del país con tarifas diferenciales.",
+        link: "#",
+        linkText: "Explorar",
+    },
+    {
+        title: "Deportes",
+        icon: "ph ph-trophy",
+        description:
+            "Participá de torneos deportivos, olimpiadas y actividades físicas pensadas para el bienestar del afiliado.",
+        link: "#",
+        linkText: "Explorar",
+    },
+    {
+        title: "Cultura",
+        icon: "ph ph-palette",
+        description:
+            "Talleres artísticos, eventos culturales y salidas recreativas para fomentar la integración y el ocio.",
+        link: "#",
+        linkText: "Explorar",
+    },
+    {
+        title: "Capacitación",
+        icon: "ph ph-graduation-cap",
+        description:
+            "Formación continua certificada para tu crecimiento profesional dentro de la estructura UNLu.",
+        link: "#",
+        linkText: "Cursos",
+    },
+    {
+        title: "Predio",
+        icon: "ph ph-house",
+        description:
+            "Nuestro espacio recreativo con pileta, parrillas y salones para el uso exclusivo de la familia nodocente.",
+        link: "#",
+        linkText: "Conocer",
+    },
+    {
+        title: "Convenios",
+        icon: "ph ph-handshake",
+        description:
+            "Descuentos especiales y planes preferenciales en una amplia red de comercios y servicios locales.",
+        link: "#",
+        linkText: "Ver todos",
+    },
+    {
+        title: "Beneficios",
+        icon: "ph ph-gift",
+        description:
+            "Accedé a subsidios, kits escolares, préstamos y diversos programas de asistencia para el afiliado.",
+        link: "#",
+        linkText: "Beneficios",
+    },
+];
+
+const duplicatedServicios = [...servicios, ...servicios, ...servicios];
+---
+
+<section
+    id="servicios"
+    class="py-32 bg-atunlu-navy text-white relative overflow-hidden"
+>
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center max-w-3xl mx-auto mb-20 reveal">
+            <h2 class="text-5xl font-extrabold mb-6 tracking-tight">
+                Servicios & Beneficios
+            </h2>
+            <p class="text-blue-100/50 text-xl">
+                Potenciando tu bienestar y el de tu familia.
+            </p>
+        </div>
+
+        <div
+            class="relative py-4 -mx-6 md:-mx-12 px-6 md:px-12 overflow-hidden slider-mask"
+        >
+            <div
+                class="flex animate-infinite-scroll hover:[animation-play-state:paused] gap-8 w-max"
+            >
+                {
+                    duplicatedServicios.map((servicio) => (
+                        <div class="w-[350px] md:w-[400px] shrink-0 group bg-white/5 border border-white/10 p-10 rounded-[2.5rem] hover:bg-atunlu-blue transition-all duration-500">
+                            <div class="w-16 h-16 bg-atunlu-blue group-hover:bg-white rounded-2xl flex items-center justify-center mb-8 transition-colors">
+                                <i
+                                    class={`${servicio.icon} text-3xl text-white group-hover:text-atunlu-blue`}
+                                />
+                            </div>
+                            <h3 class="text-2xl font-bold mb-4">
+                                {servicio.title}
+                            </h3>
+                            <p class="text-blue-100/60 group-hover:text-white/80 leading-relaxed mb-8">
+                                {servicio.description}
+                            </p>
+                            <a
+                                href={servicio.link}
+                                class="inline-flex items-center gap-2 font-bold text-atunlu-blue group-hover:text-white transition-colors"
+                            >
+                                {servicio.linkText}{" "}
+                                <i class="ph ph-arrow-right" />
+                            </a>
+                        </div>
+                    ))
+                }
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    @keyframes infinite-scroll {
+        from {
+            transform: translateX(0);
+        }
+        to {
+            transform: translateX(
+                calc(-33.33333333% - 0.66666666rem)
+            ); /* Ajustado para 3 sets con gap-8 (2rem): 2rem / 3 = 0.6666rem */
+        }
+    }
+
+    .slider-mask {
+        mask-image: linear-gradient(
+            to right,
+            transparent 0%,
+            rgba(0, 0, 0, 0.4) 10%,
+            black 20%,
+            black 80%,
+            rgba(0, 0, 0, 0.4) 90%,
+            transparent 100%
+        );
+
+        -webkit-mask-image: linear-gradient(
+            to right,
+            transparent 0%,
+            rgba(0, 0, 0, 0.4) 10%,
+            black 20%,
+            black 80%,
+            rgba(0, 0, 0, 0.4) 90%,
+            transparent 100%
+        );
+    }
+
+    .animate-infinite-scroll {
+        animation: infinite-scroll 40s linear infinite;
+        will-change: transform;
+    }
+
+    /* For higher refresh rate screens or smoother motion */
+    @media (prefers-reduced-motion: reduce) {
+        .animate-infinite-scroll {
+            animation: none;
+            overflow-x: auto;
+        }
+    }
+</style>
