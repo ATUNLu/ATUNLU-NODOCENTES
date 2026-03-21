@@ -133,3 +133,12 @@ Todos los comandos se ejecutan desde la raíz del proyecto:
 
 - **Organización:** ATUNLu — Asociación de Trabajadores de la Universidad Nacional de Luján
 - **Universidad:** Universidad Nacional de Luján (UNLu)
+
+---
+
+## ⚖️ Licencia
+
+Este proyecto utiliza un modelo de licencia dividida:
+
+* **Código Fuente:** El código fuente de este sitio web (archivos `.astro`, `.js`, `.css`, etc.) se distribuye bajo la licencia **[MIT](LICENSE)**. Eres libre de usarlo, modificarlo y adaptarlo para tus otros proyectos.
+* **Contenido y Activos:** Los logos, fotografías, gráficos institucionales y el contenido de los artículos/textos (como las novedades) **NO** están cubiertos por la licencia MIT. Todo el contenido institucional pertenece a ATUNLu y todos los derechos están reservados.
