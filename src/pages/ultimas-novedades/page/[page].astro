@@ -2,8 +2,9 @@
 import { getCollection } from "astro:content";
 import Layout from "../../../layouts/Layout.astro";
 import NovedadCard from "../../../components/NovedadCard.astro";
+import SearchNovedades from "../../../components/SearchNovedades.astro";
 
-export async function getStaticPaths({ paginate }) {
+export async function getStaticPaths({ paginate }: any) {
     const allNovedades = await getCollection("novedades", ({ data }) => {
         return data.draft !== true;
     });
@@ -14,13 +15,23 @@ export async function getStaticPaths({ paginate }) {
 
     const paths = paginate(sortedNovedades, { pageSize: 9 });
     // Skip page 1 as it's handled by /ultimas-novedades/index.astro
-    return paths.filter((p) => p.params.page !== 1 && p.params.page !== "1");
+    return paths.filter(
+        (p: any) => p.params.page !== 1 && p.params.page !== "1",
+    );
 }
 
-const { page } = Astro.props;
+const { page } = Astro.props as { page: any };
 
 // Adjust URLs for the first page
 const prevUrl = page.currentPage === 2 ? "/ultimas-novedades" : page.url.prev;
+
+const allNovedades = await getCollection("novedades", ({ data }) => {
+    return data.draft !== true;
+});
+
+const sortedNovedadesForSearch = allNovedades.sort(
+    (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
 ---
 
 <Layout
@@ -29,32 +40,86 @@ const prevUrl = page.currentPage === 2 ? "/ultimas-novedades" : page.url.prev;
 >
     <section class="py-32 bg-slate-200 min-h-screen">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="mb-16 reveal active">
-                <a
-                    href="/ultimas-novedades"
-                    class="inline-flex items-center gap-2 text-atunlu-blue font-bold mb-8 hover:-translate-x-2 transition-transform"
-                >
-                    <i class="ph ph-caret-left"></i> Volver a la primera página
-                </a>
-                <h1
-                    class="text-6xl font-extrabold text-atunlu-navy tracking-tight mb-4"
-                >
-                    Últimas Novedades
-                </h1>
-                <p class="text-xl text-gray-500 font-medium max-w-2xl">
-                    Página {page.currentPage} de {page.lastPage}
-                </p>
-            </div>
+            <div
+                class="flex flex-col md:flex-row md:items-end justify-between gap-10 mb-16 reveal active"
+            >
+                <div class="max-w-2xl">
+                    <a
+                        href="/ultimas-novedades"
+                        class="inline-flex items-center gap-2 text-atunlu-blue font-bold mb-8 hover:-translate-x-2 transition-transform"
+                    >
+                        <i class="ph ph-caret-left"></i> Volver a la primera página
+                    </a>
+                    <h1
+                        class="text-6xl font-extrabold text-atunlu-navy tracking-tight mb-4"
+                    >
+                        Últimas Novedades
+                    </h1>
+                    <p class="text-xl text-gray-500 font-medium text-balance">
+                        Página {page.currentPage} de {page.lastPage}
+                    </p>
+                </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-                {
-                    page.data.map((novedad, index) => (
-                        <NovedadCard novedad={novedad} index={index} />
-                    ))
-                }
+                <div class="w-full md:w-[450px] shrink-0">
+                    <SearchNovedades allNovedades={sortedNovedadesForSearch} />
+                </div>
             </div>
 
             <div
+                id="static-novedades-grid"
+                class="grid grid-cols-1 md:grid-cols-3 gap-10"
+            >
+                {
+                    sortedNovedadesForSearch.map(
+                        (novedad: any, index: number) => {
+                            const pageSize = 9;
+                            const pageStart = (page.currentPage - 1) * pageSize;
+                            const pageEnd = pageStart + pageSize;
+                            const isVisibleOnPage =
+                                index >= pageStart && index < pageEnd;
+
+                            return (
+                                <div
+                                    class:list={[
+                                        "novedad-wrapper",
+                                        !isVisibleOnPage ? "hidden" : "",
+                                    ]}
+                                    data-index={index}
+                                    data-initial-hidden={
+                                        !isVisibleOnPage ? "true" : undefined
+                                    }
+                                    data-title={novedad.data.title.toLowerCase()}
+                                    data-description={novedad.data.description.toLowerCase()}
+                                    data-category={novedad.data.category.toLowerCase()}
+                                >
+                                    <NovedadCard
+                                        novedad={novedad}
+                                        index={index % pageSize}
+                                    />
+                                </div>
+                            );
+                        },
+                    )
+                }
+            </div>
+
+            <div id="no-results" class="hidden py-20 text-center">
+                <div
+                    class="inline-flex items-center justify-center w-20 h-20 bg-gray-100 rounded-full mb-6"
+                >
+                    <i class="ph ph-magnifying-glass text-3xl text-gray-400"
+                    ></i>
+                </div>
+                <h3 class="text-2xl font-bold text-atunlu-navy mb-2">
+                    No se encontraron resultados
+                </h3>
+                <p class="text-gray-500">
+                    Intentá con otras palabras clave o revisá la ortografía.
+                </p>
+            </div>
+
+            <div
+                id="novedades-pagination"
                 class="mt-20 flex justify-center items-center gap-8 reveal active"
             >
                 {

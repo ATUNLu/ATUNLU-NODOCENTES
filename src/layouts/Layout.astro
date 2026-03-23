@@ -22,7 +22,7 @@ const {
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
+		<link rel="icon" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 
@@ -45,19 +45,21 @@ const {
 		<Whatsapp />
 		<script>
 			// Reveal on scroll logic
-			function reveal() {
-				const reveals = document.querySelectorAll(".reveal");
-				for (let i = 0; i < reveals.length; i++) {
-					const windowHeight = window.innerHeight;
-					const elementTop = reveals[i].getBoundingClientRect().top;
-					const elementVisible = 150;
-					if (elementTop < windowHeight - elementVisible) {
-						reveals[i].classList.add("active");
-					}
-				}
-			}
-			window.addEventListener("scroll", reveal);
-			window.addEventListener("load", reveal);
+			const observer = new IntersectionObserver(
+				(entries) => {
+					entries.forEach((entry) => {
+						if (entry.isIntersecting) {
+							entry.target.classList.add("active");
+							observer.unobserve(entry.target); // se dispara una sola vez
+						}
+					});
+				},
+				{ threshold: 0.15 }, // activa cuando el 15% del elemento es visible
+			);
+
+			document
+				.querySelectorAll(".reveal")
+				.forEach((el) => observer.observe(el));
 		</script>
 	</body>
 </html>

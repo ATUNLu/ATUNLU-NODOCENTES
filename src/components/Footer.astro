@@ -2,6 +2,10 @@
 import { Image } from "astro:assets";
 import atunluPleno from "../assets/images/iconos/atunlu-pleno.svg";
 import fatunFooter from "../assets/images/iconos/fatun-footer.png";
+import instagramIcon from "../assets/images/iconos/instagram-icon.svg";
+import facebookIcon from "../assets/images/iconos/facebook-icon.svg";
+import xIcon from "../assets/images/iconos/x_dark.svg";
+import youtubeIcon from "../assets/images/iconos/youtube.svg";
 const footerSections = [
     {
         title: "Sindicato",
@@ -25,14 +29,39 @@ const footerSections = [
 ];
 
 const socialLinks = [
-    { icon: "ph ph-instagram-logo", href: "#" },
-    { icon: "ph ph-facebook-logo", href: "#" },
-    { icon: "ph ph-twitter-logo", href: "#" },
+    { icon: instagramIcon, href: "#" },
+    { icon: facebookIcon, href: "#" },
+    { icon: youtubeIcon, href: "#" },
+    { icon: xIcon, href: "#" },
 ];
 ---
 
 <footer class="bg-atunlu-dark text-white pt-24 pb-12 mt-auto">
     <div class="max-w-7xl mx-auto px-6">
+        <div class="mb-16">
+            <p
+                class="text-center text-gray-500 text-[10px] uppercase tracking-[0.3em] mb-6 font-black text-pretty"
+            >
+                Descubrí más contenido en nuestras redes
+            </p>
+            <div class="flex justify-center gap-6 mb-6">
+                {
+                    socialLinks.map((social) => (
+                        <a
+                            href={social.href}
+                            class="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center hover:bg-atunlu-blue transition-all duration-300"
+                        >
+                            <img
+                                src={social.icon.src}
+                                alt=""
+                                class="w-8 h-8 object-contain"
+                            />
+                        </a>
+                    ))
+                }
+            </div>
+        </div>
+
         <div class="grid grid-cols-1 md:grid-cols-4 gap-16 mb-20">
             <div class="space-y-8">
                 <div class="flex items-center gap-6">
@@ -55,18 +84,6 @@ const socialLinks = [
                     Trabajando por la dignidad de los trabajadores y
                     trabajadoras de la Universidad Nacional de Luján.
                 </p>
-                <div class="flex gap-4">
-                    {
-                        socialLinks.map((social) => (
-                            <a
-                                href={social.href}
-                                class="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center hover:bg-atunlu-blue transition-all duration-300"
-                            >
-                                <i class={`${social.icon} text-xl`} />
-                            </a>
-                        ))
-                    }
-                </div>
             </div>
 
             {

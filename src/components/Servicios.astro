@@ -111,17 +111,6 @@ const duplicatedServicios = [...servicios, ...servicios, ...servicios];
 </section>
 
 <style>
-    @keyframes infinite-scroll {
-        from {
-            transform: translateX(0);
-        }
-        to {
-            transform: translateX(
-                calc(-33.33333333% - 0.66666666rem)
-            ); /* Ajustado para 3 sets con gap-8 (2rem): 2rem / 3 = 0.6666rem */
-        }
-    }
-
     .slider-mask {
         mask-image: linear-gradient(
             to right,
@@ -132,7 +121,6 @@ const duplicatedServicios = [...servicios, ...servicios, ...servicios];
             rgba(0, 0, 0, 0.4) 90%,
             transparent 100%
         );
-
         -webkit-mask-image: linear-gradient(
             to right,
             transparent 0%,
@@ -145,15 +133,52 @@ const duplicatedServicios = [...servicios, ...servicios, ...servicios];
     }
 
     .animate-infinite-scroll {
-        animation: infinite-scroll 40s linear infinite;
         will-change: transform;
-    }
-
-    /* For higher refresh rate screens or smoother motion */
-    @media (prefers-reduced-motion: reduce) {
-        .animate-infinite-scroll {
-            animation: none;
-            overflow-x: auto;
-        }
+        /* Sin animación CSS — el movimiento lo maneja JS */
     }
 </style>
+
+<script>
+    const track = document.querySelector(
+        ".animate-infinite-scroll",
+    ) as HTMLElement;
+    if (track) {
+        let position = 0;
+        let paused = false;
+        let rafId: number;
+        const speed = 2;
+
+        // Se calcula una sola vez y se actualiza solo si cambia el tamaño
+        let loopWidth = track.scrollWidth / 3;
+
+        const resizeObserver = new ResizeObserver(() => {
+            loopWidth = track.scrollWidth / 3;
+        });
+        resizeObserver.observe(track);
+
+        function tick() {
+            if (!paused) {
+                position += speed;
+                if (position >= loopWidth) position -= loopWidth;
+                track.style.transform = `translateX(-${position}px)`;
+            }
+            rafId = requestAnimationFrame(tick);
+        }
+
+        // Pausa cuando el carrusel sale del viewport
+        const intersectionObserver = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    rafId = requestAnimationFrame(tick);
+                } else {
+                    cancelAnimationFrame(rafId);
+                }
+            },
+            { threshold: 0 },
+        );
+        intersectionObserver.observe(track);
+
+        track.addEventListener("mouseenter", () => (paused = true));
+        track.addEventListener("mouseleave", () => (paused = false));
+    }
+</script>

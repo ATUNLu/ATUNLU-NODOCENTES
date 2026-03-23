@@ -1,0 +1,149 @@
+---
+interface Props {
+    allNovedades: any[];
+}
+
+const { allNovedades } = Astro.props;
+---
+
+<div>
+    <div class="relative w-full">
+        <input
+            type="text"
+            id="novedades-search"
+            placeholder="Buscar novedades por título o contenido..."
+            class="w-full pl-6 pr-12 py-4 rounded-2xl bg-white border border-blue-100 shadow-sm focus:outline-none focus:ring-2 focus:ring-atunlu-blue/20 focus:border-atunlu-blue transition-all text-atunlu-navy font-medium placeholder:text-gray-400"
+        />
+        <div
+            class="absolute right-5 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"
+        >
+            <i class="ph ph-magnifying-glass text-xl"></i>
+        </div>
+    </div>
+
+    <!--
+        Siempre ocupa su espacio en el DOM (evita el layout shift).
+        La visibilidad se maneja con opacidad y pointer-events.
+    -->
+    <div
+        id="search-results-info"
+        class="flex items-center justify-between mt-3 transition-all duration-300 ease-out"
+        style="opacity: 0; pointer-events: none; min-height: 1.5rem;"
+    >
+        <p class="text-sm font-bold text-atunlu-navy" id="search-results-title">
+        </p>
+        <button
+            id="clear-search"
+            class="text-sm font-bold text-atunlu-blue hover:underline"
+        >
+            Limpiar búsqueda
+        </button>
+    </div>
+</div>
+<!-- El div #no-results se movió a las páginas para mejor posicionamiento -->
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const searchInput = document.getElementById(
+            "novedades-search",
+        ) as HTMLInputElement;
+        const searchResultsInfo = document.getElementById(
+            "search-results-info",
+        ) as HTMLElement | null;
+        const searchResultsTitle = document.getElementById(
+            "search-results-title",
+        );
+        const clearSearchBtn = document.getElementById("clear-search");
+        const noResults = document.getElementById("no-results");
+
+        const staticGrid = document.getElementById("static-novedades-grid");
+        const pagination = document.getElementById("novedades-pagination");
+        const novedadWrappers = document.querySelectorAll(
+            ".novedad-wrapper",
+        ) as NodeListOf<HTMLElement>;
+
+        if (!searchInput || !staticGrid) return;
+
+        function showResultsInfo(visible: boolean) {
+            if (!searchResultsInfo) return;
+            if (visible) {
+                searchResultsInfo.style.opacity = "1";
+                searchResultsInfo.style.pointerEvents = "auto";
+            } else {
+                searchResultsInfo.style.opacity = "0";
+                searchResultsInfo.style.pointerEvents = "none";
+            }
+        }
+
+        function performSearch(query: string) {
+            const isSearching = query.trim().length > 0;
+            const searchTerm = query.toLowerCase().trim();
+
+            let matchCount = 0;
+
+            novedadWrappers.forEach((wrapper) => {
+                const title = wrapper.dataset.title || "";
+                const description = wrapper.dataset.description || "";
+                const category = wrapper.dataset.category || "";
+
+                const matches =
+                    !isSearching ||
+                    title.includes(searchTerm) ||
+                    description.includes(searchTerm) ||
+                    category.includes(searchTerm);
+
+                if (isSearching) {
+                    if (matches) {
+                        wrapper.classList.remove("hidden");
+                        wrapper.classList.add("reveal", "active");
+                        matchCount++;
+                    } else {
+                        wrapper.classList.add("hidden");
+                    }
+                } else {
+                    // Reset to initial state
+                    if (wrapper.hasAttribute("data-initial-hidden")) {
+                        wrapper.classList.add("hidden");
+                    } else {
+                        wrapper.classList.remove("hidden");
+                    }
+                }
+            });
+
+            if (isSearching) {
+                if (pagination) pagination.classList.add("hidden");
+
+                if (matchCount > 0) {
+                    noResults?.classList.add("hidden");
+                    staticGrid?.classList.remove("hidden");
+                    if (searchResultsTitle) {
+                        searchResultsTitle.textContent = `${matchCount} ${matchCount === 1 ? "resultado" : "resultados"} para "${query}"`;
+                    }
+                } else {
+                    staticGrid?.classList.add("hidden");
+                    noResults?.classList.remove("hidden");
+                    if (searchResultsTitle) {
+                        searchResultsTitle.textContent = `0 resultados para "${query}"`;
+                    }
+                }
+
+                showResultsInfo(true);
+            } else {
+                showResultsInfo(false);
+                noResults?.classList.add("hidden");
+                staticGrid?.classList.remove("hidden");
+                if (pagination) pagination.classList.remove("hidden");
+            }
+        }
+
+        searchInput.addEventListener("input", (e) => {
+            const target = e.target as HTMLInputElement;
+            performSearch(target.value);
+        });
+
+        clearSearchBtn?.addEventListener("click", () => {
+            searchInput.value = "";
+            performSearch("");
+        });
+    });
+</script>

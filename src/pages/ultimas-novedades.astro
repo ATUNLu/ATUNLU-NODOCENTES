@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import Layout from "../layouts/Layout.astro";
 import NovedadCard from "../components/NovedadCard.astro";
+import SearchNovedades from "../components/SearchNovedades.astro";
 
 const allNovedades = await getCollection("novedades", ({ data }) => {
     return data.draft !== true;
@@ -29,35 +30,81 @@ const page = {
 <Layout title="Últimas Novedades | ATUNLu" isOpaque={true}>
     <section class="py-32 bg-slate-200 min-h-screen">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="mb-16 reveal active">
-                <a
-                    href="/"
-                    class="inline-flex items-center gap-2 text-atunlu-blue font-bold mb-8 hover:-translate-x-2 transition-transform"
-                >
-                    <i class="ph ph-caret-left"></i> Volver al inicio
-                </a>
-                <h1
-                    class="text-6xl font-extrabold text-atunlu-navy tracking-tight mb-4"
-                >
-                    Últimas Novedades
-                </h1>
-                <p class="text-xl text-gray-500 font-medium max-w-2xl">
-                    Mantenete informado con todas las noticias y novedades del
-                    sindicato.
-                </p>
+            <div
+                class="flex flex-col md:flex-row md:items-end justify-between gap-10 mb-16 reveal active"
+            >
+                <div class="max-w-2xl">
+                    <a
+                        href="/"
+                        class="inline-flex items-center gap-2 text-atunlu-blue font-bold mb-8 hover:-translate-x-2 transition-transform"
+                    >
+                        <i class="ph ph-caret-left"></i> Volver al inicio
+                    </a>
+                    <h1
+                        class="text-6xl font-extrabold text-atunlu-navy tracking-tight mb-4"
+                    >
+                        Últimas Novedades
+                    </h1>
+                    <p class="text-xl text-gray-500 font-medium text-balance">
+                        Mantenete informado con todas las noticias y novedades
+                        del sindicato.
+                    </p>
+                </div>
+
+                <div class="w-full md:w-[450px] shrink-0">
+                    <SearchNovedades allNovedades={sortedNovedades} />
+                </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+            <div
+                id="static-novedades-grid"
+                class="grid grid-cols-1 md:grid-cols-3 gap-10"
+            >
                 {
-                    page.data.map((novedad, index) => (
-                        <NovedadCard novedad={novedad} index={index} />
+                    sortedNovedades.map((novedad, index) => (
+                        <div
+                            class:list={[
+                                "novedad-wrapper",
+                                index >= pageSize ? "hidden" : "",
+                            ]}
+                            data-index={index}
+                            data-initial-hidden={
+                                index >= pageSize ? "true" : undefined
+                            }
+                            data-title={novedad.data.title.toLowerCase()}
+                            data-description={novedad.data.description.toLowerCase()}
+                            data-category={novedad.data.category.toLowerCase()}
+                        >
+                            <NovedadCard
+                                novedad={novedad}
+                                index={index % pageSize}
+                            />
+                        </div>
                     ))
                 }
             </div>
 
+            <div id="no-results" class="hidden py-20 text-center">
+                <div
+                    class="inline-flex items-center justify-center w-20 h-20 bg-gray-100 rounded-full mb-6"
+                >
+                    <i class="ph ph-magnifying-glass text-3xl text-gray-400"
+                    ></i>
+                </div>
+                <h3 class="text-2xl font-bold text-atunlu-navy mb-2">
+                    No se encontraron resultados
+                </h3>
+                <p class="text-gray-500">
+                    Intentá con otras palabras clave o revisá la ortografía.
+                </p>
+            </div>
+
             {
                 page.lastPage > 1 && (
-                    <div class="mt-20 flex justify-center items-center gap-8 reveal active">
+                    <div
+                        id="novedades-pagination"
+                        class="mt-20 flex justify-center items-center gap-8 reveal active"
+                    >
                         {page.url.prev && (
                             <a
                                 href={page.url.prev}
