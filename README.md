@@ -30,6 +30,7 @@ Sitio web oficial de **ATUNLu** (Asociación de Trabajadores de la Universidad N
 ├── src/
 │   ├── assets/
 │   │   ├── images/          # Imágenes del sitio (novedades, institución, etc.)
+│   │   │   └── iconos/      # Iconos de redes sociales y logos
 │   │   ├── background.svg
 │   │   └── whatsapp.svg
 │   ├── components/
@@ -42,8 +43,10 @@ Sitio web oficial de **ATUNLu** (Asociación de Trabajadores de la Universidad N
 │   │   ├── ComisionDirectiva.astro  # Comisión Directiva vigente
 │   │   ├── VideoInstitucional.astro # Embed de video institucional de YouTube
 │   │   ├── Contacto.astro           # Sección de contacto
-│   │   ├── Footer.astro             # Pie de página
+│   │   ├── Footer.astro             # Pie de página con enlaces a redes sociales
 │   │   ├── Whatsapp.astro           # Botón flotante de WhatsApp
+│   │   ├── SearchNovedades.astro    # Buscador de novedades en tiempo real
+│   │   ├── ShareButton.astro        # Botón para compartir en redes sociales
 │   │   └── Header.astro             # Header alternativo
 │   ├── content/
 │   │   └── novedades/               # Artículos de novedades en formato Markdown
@@ -75,7 +78,7 @@ Sitio web oficial de **ATUNLu** (Asociación de Trabajadores de la Universidad N
 | `/autoridades` | Comisión Directiva actual de ATUNLu |
 | `/historia` | Historia del sindicato |
 | `/afiliacion` | Información y pasos para afiliarse a ATUNLu |
-| `/ultimas-novedades` | Listado completo de novedades y noticias |
+| `/ultimas-novedades` | Listado completo de novedades con buscador integrado |
 | `/novedades/[slug]` | Detalle de cada novedad (ruta dinámica) |
 
 ---
