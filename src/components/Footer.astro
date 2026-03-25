@@ -2,6 +2,7 @@
 import { Image } from "astro:assets";
 import atunluPleno from "../assets/images/iconos/atunlu-pleno.svg";
 import fatunFooter from "../assets/images/iconos/fatun-footer.png";
+import logoCgtra from "../assets/images/iconos/logo_cgtra.png";
 import instagramIcon from "../assets/images/iconos/instagram-icon.svg";
 import facebookIcon from "../assets/images/iconos/facebook-icon.svg";
 import xIcon from "../assets/images/iconos/x_dark.svg";
@@ -23,7 +24,7 @@ const footerSections = [
             { label: "Sede Luján", href: "#" },
             { label: "Sede San Miguel", href: "#" },
             { label: "Centro Regional Campana", href: "#" },
-            { label: "Chivilcoy", href: "#" },
+            { label: "Centro Regional Chivilcoy", href: "#" },
         ],
     },
 ];
@@ -79,6 +80,13 @@ const socialLinks = [
                             class="h-22 w-auto object-contain"
                         />
                     </a>
+                    <a href="https://cgtoficial.org/" target="_blank">
+                        <Image
+                            src={logoCgtra}
+                            alt="CGT Logo"
+                            class="h-22 w-auto object-contain"
+                        />
+                    </a>
                 </div>
                 <p class="text-gray-400 leading-relaxed font-medium">
                     Trabajando por la dignidad de los trabajadores y
@@ -115,15 +123,27 @@ const socialLinks = [
                     Ubicación
                 </h4>
                 <div class="bg-white/5 p-6 rounded-3xl border border-white/10">
-                    <p class="text-sm leading-relaxed text-gray-300">
-                        Cruce de Rutas Nacionales 5 y 7. Luján, Buenos Aires,
-                        Argentina.
-                    </p>
                     <a
-                        href="#"
-                        class="inline-block mt-4 text-xs font-black text-atunlu-blue uppercase tracking-widest hover:text-white transition-colors"
+                        href="https://maps.app.goo.gl/v67dSfB4VhqssXYQ7"
+                        target="_blank"
+                        class="inline-block mb-4 text-xs font-black text-atunlu-blue uppercase tracking-widest hover:text-white transition-colors"
                         >Ver en Google Maps</a
                     >
+                    <div class="rounded-2xl overflow-hidden h-32 w-full">
+                        <iframe
+                            width="100%"
+                            height="100%"
+                            style="border:0; filter: grayscale(1) invert(0.9) contrast(0.8);"
+                            src="https://www.google.com/maps?q=-34.5760336,-59.0896557&z=16&output=embed"
+                            allowfullscreen=""
+                            loading="lazy"
+                        >
+                        </iframe>
+                    </div>
+                    <p class="text-sm leading-relaxed text-gray-300 mt-3">
+                        Av. Constitución 2288, B6700 Luján, Provincia de Buenos
+                        Aires.
+                    </p>
                 </div>
             </div>
         </div>
