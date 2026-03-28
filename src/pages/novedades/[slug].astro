@@ -3,6 +3,7 @@ import { getCollection, render } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 import { Image } from "astro:assets";
 import ShareButton from "../../components/ShareButton.astro";
+import { Icon } from "astro-icon/components";
 
 export async function getStaticPaths() {
     const novedades = await getCollection("novedades");
@@ -32,7 +33,7 @@ const formatDate = (date: Date) => {
                     href="/#novedades"
                     class="inline-flex items-center gap-2 text-atunlu-blue font-bold hover:gap-4 transition-all"
                 >
-                    <i class="ph ph-caret-left"></i> Volver a novedades
+                    <Icon name="ph:caret-left" /> Volver a novedades
                 </a>
 
                 <ShareButton />
@@ -69,7 +70,7 @@ const formatDate = (date: Date) => {
                         entry.data.author && (
                             <div class="flex items-center gap-4 mb-12 pb-8 border-b border-gray-100">
                                 <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center text-atunlu-navy">
-                                    <i class="ph ph-user text-2xl" />
+                                    <Icon name="ph:user" class="text-2xl" />
                                 </div>
                                 <div>
                                     <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">

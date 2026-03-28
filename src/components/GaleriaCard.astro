@@ -1,0 +1,67 @@
+---
+import type { Galeria } from "../data/galerias";
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+
+interface Props {
+    galeria: Galeria;
+    index: number;
+}
+
+const { galeria, index } = Astro.props;
+
+const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    // Add timezone offset to prevent shifting day backwards if timezone is UTC-X
+    date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
+
+    return date
+        .toLocaleDateString("es-ES", {
+            day: "2-digit",
+            month: "long",
+            year: "numeric",
+        })
+        .toUpperCase();
+};
+---
+
+<a
+    href={`/galeria/${galeria.slug}`}
+    class="bg-white rounded-[2.5rem] overflow-hidden border border-blue-200 reveal zoom-in flex flex-col h-full group/card"
+    style={`transition-delay: ${index * 150}ms;`}
+>
+    <div class="overflow-hidden relative group h-48 md:h-56">
+        <Image
+            src={galeria.portada}
+            width={600}
+            height={400}
+            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 group-hover/card:scale-110"
+            alt={`Portada de la galería: ${galeria.titulo}`}
+        />
+        <div
+            class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"
+        >
+        </div>
+        <span
+            class="absolute bottom-6 left-6 bg-white/90 backdrop-blur px-4 py-1.5 rounded-full text-[10px] font-black uppercase text-atunlu-navy flex items-center gap-2"
+        >
+            <Icon name="ph:camera" class="text-base" />
+            {galeria.fotos.length} Fotos
+        </span>
+    </div>
+    <div class="flex flex-col justify-between p-6 grow">
+        <div>
+            <time class="text-xs font-bold text-gray-400 block mb-2">
+                {formatDate(galeria.fecha)}
+            </time>
+            <h3 class="font-bold text-atunlu-navy text-xl leading-tight mb-2">
+                {galeria.titulo}
+            </h3>
+        </div>
+        <div
+            class="w-12 h-12 mt-4 bg-gray-50 rounded-full flex items-center justify-center text-atunlu-blue transition-all self-start group-hover/card:bg-atunlu-blue group-hover/card:text-white"
+        >
+            <Icon name="ph:arrow-right" class="font-bold" />
+        </div>
+    </div>
+</a>

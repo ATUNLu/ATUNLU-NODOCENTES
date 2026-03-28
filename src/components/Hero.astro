@@ -1,4 +1,5 @@
 ---
+import { Icon } from "astro-icon/components";
 import { Image } from "astro:assets";
 import hero1 from "../assets/images/hero/hero-1.jpg";
 import hero2 from "../assets/images/hero/hero-2.jpg";
@@ -59,9 +60,11 @@ const images = [hero1, hero2, hero3];
             <div class="flex flex-col sm:flex-row gap-4 pt-8">
                 <a
                     href="/#novedades"
-                    class="btn-shine px-8 py-4 bg-atunlu-blue text-white font-bold rounded shadow-xl flex items-center justify-center gap-2 hover:-translate-y-1 transition-all duration-300"
+                    class:list={[
+                        "btn-shine px-8 py-4 bg-atunlu-blue text-white font-bold rounded shadow-xl flex items-center justify-center gap-2 hover:-translate-y-1 transition-all duration-300",
+                    ]}
                 >
-                    NOVEDADES <i class="ph ph-arrow-right"></i>
+                    NOVEDADES <Icon name="ph:arrow-right" />
                 </a>
                 <a
                     href="/#servicios"
@@ -92,7 +95,7 @@ const images = [hero1, hero2, hero3];
     <div
         class="absolute bottom-10 left-1/2 -translate-x-1/2 text-white animate-bounce opacity-50"
     >
-        <i class="ph ph-caret-double-down text-2xl"></i>
+        <Icon name="ph:caret-double-down" class="text-2xl" />
     </div>
 </section>
 

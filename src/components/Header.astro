@@ -1,6 +1,7 @@
 ---
 import atunlu from "../assets/images/iconos/atunlu.svg";
 import atunluPleno from "../assets/images/iconos/atunlu-pleno.svg";
+import { Icon } from "astro-icon/components";
 
 interface Props {
     isOpaque?: boolean;
@@ -87,7 +88,7 @@ const menuItems = [
                                 ]}
                             >
                                 {item.label}
-                                <i class="ph ph-caret-down text-xs transition-transform group-hover:rotate-180" />
+                                <Icon name="ph:caret-down" class="text-xs transition-transform group-hover:rotate-180" />
                             </a>
                             <div
                                 class:list={[
@@ -141,7 +142,7 @@ const menuItems = [
                 "lg:hidden text-3xl",
                 isOpaque ? "text-atunlu-navy" : "text-white",
             ]}
-            id="mobile-menu-btn"><i class="ph ph-list"></i></button
+            id="mobile-menu-btn"><Icon name="ph:list" /></button
         >
     </div>
 </nav>

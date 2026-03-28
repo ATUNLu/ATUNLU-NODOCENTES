@@ -1,4 +1,6 @@
 ---
+import { Icon } from "astro-icon/components";
+
 interface Props {
     allNovedades: any[];
 }
@@ -17,7 +19,7 @@ const { allNovedades } = Astro.props;
         <div
             class="absolute right-5 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"
         >
-            <i class="ph ph-magnifying-glass text-xl"></i>
+            <Icon name="ph:magnifying-glass" class="text-xl" />
         </div>
     </div>
 

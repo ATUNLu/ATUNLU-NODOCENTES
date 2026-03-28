@@ -1,0 +1,88 @@
+---
+import fondoDark from "@assets/images/fondos/fondo-dark.svg";
+import Layout from "@layouts/Layout.astro";
+import GaleriaCard from "@components/GaleriaCard.astro";
+import { galerias } from "@data/galerias";
+import { Icon } from "astro-icon/components";
+
+// Ordenar galerías por fecha (más reciente primero) si se desea
+const sortedGalerias = galerias.sort((a, b) => {
+    return new Date(b.fecha).getTime() - new Date(a.fecha).getTime();
+});
+---
+
+<Layout title="Galerías Fotográficas | ATUNLu" isOpaque={true}>
+    <section class="relative overflow-hidden py-20 md:py-32 bg-atunlu-navy min-h-screen">
+        <div class="relative z-10 max-w-7xl mx-auto px-6">
+            <div
+                class="flex flex-col md:flex-row md:items-end justify-between gap-10 mb-16 reveal active"
+            >
+                <div class="max-w-2xl">
+                    <a
+                        href="/"
+                        class="inline-flex items-center gap-2 text-atunlu-blue font-bold mb-6 md:mb-8 hover:-translate-x-2 transition-transform"
+                    >
+                        <Icon name="ph:caret-left" /> Volver al inicio
+                    </a>
+                    <h1
+                        class="text-4xl md:text-6xl font-extrabold text-white tracking-tight mb-4"
+                    >
+                        Galerías Fotográficas
+                    </h1>
+                    <p class="text-lg md:text-xl text-gray-400 font-medium text-balance">
+                        Reviví los mejores momentos de nuestros eventos,
+                        encuentros y asambleas.
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                {
+                    sortedGalerias.map((galeria, index) => (
+                        <GaleriaCard galeria={galeria} index={index} />
+                    ))
+                }
+            </div>
+
+            {
+                sortedGalerias.length === 0 && (
+                    <div class="py-20 text-center">
+                        <div class="inline-flex items-center justify-center w-20 h-20 bg-gray-100/5 rounded-full mb-6 text-white/20">
+                            <Icon name="ph:camera" class="text-3xl" />
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-2">
+                            No hay galerías publicadas aún
+                        </h3>
+                        <p class="text-gray-500">
+                            ¡Pronto subiremos las fotos de nuestros eventos!
+                        </p>
+                    </div>
+                )
+            }
+        </div>
+        <!-- Fondo SVG inferior -->
+        <div
+            class="absolute bottom-0 left-0 w-full pointer-events-none z-0"
+            style="line-height: 0;"
+        >
+            <img
+                src={fondoDark.src}
+                alt=""
+                aria-hidden="true"
+                class="w-full block opacity-20"
+            />
+        </div>
+    </section>
+</Layout>
+
+<style>
+    .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s ease-out;
+    }
+    .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+    }
+</style>

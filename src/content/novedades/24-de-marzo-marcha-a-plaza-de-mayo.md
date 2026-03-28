@@ -12,4 +12,4 @@ El martes 24 de Marzo las y los Nodocentes participaremos del acto en Luján por
 
 Nos encontramos a las 9.30 horas en la Plazoleta de los Derechos Humanos, calle Belgrano y Avenida Constitución, para participar del acto local. Desde allí salimos a las 10.30 a Plaza de Mayo. Inscribite en el formulario para marchar con ATUNLu, hasta el viernes a las 15 horas.
 
-FORMULARIO INSCRIPCIÓN (para todas las Sedes/CCRR de la UNLu) 👉 https://forms.gle/TREomqEeLVXrZq4X8
+FORMULARIO INSCRIPCIÓN (para todas las Sedes/CCRR de la UNLu) 👉

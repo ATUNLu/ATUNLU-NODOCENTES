@@ -1,6 +1,7 @@
 ---
 import atunlu from "../assets/images/iconos/atunlu.svg";
 import atunluPleno from "../assets/images/iconos/atunlu-pleno.svg";
+import { Icon } from "astro-icon/components";
 
 interface Props {
     isOpaque?: boolean;
@@ -32,7 +33,7 @@ const menuItems = [
     },
     { label: "Capacitación", href: "/#capacitacion" },
     { label: "Paritarias", href: "/#paritarias" },
-    { label: "Galería", href: "/#galeria" },
+    { label: "Galería", href: "/galeria" },
     { label: "Contacto", href: "/#contacto" },
 ];
 ---
@@ -88,7 +89,7 @@ const menuItems = [
                                 ]}
                             >
                                 {item.label}
-                                <i class="ph ph-caret-down text-xs transition-transform group-hover:rotate-180 dropdown-caret" />
+                                <Icon name="ph:caret-down" class="text-xs transition-transform group-hover:rotate-180 dropdown-caret" />
                             </a>
                             <div
                                 class:list={[
@@ -147,8 +148,8 @@ const menuItems = [
             aria-label="Abrir menú"
             aria-expanded="false"
         >
-            <i class="ph ph-list" id="icon-open"></i>
-            <i class="ph ph-x hidden" id="icon-close"></i>
+            <Icon name="ph:list" id="icon-open" />
+            <Icon name="ph:x" class="hidden" id="icon-close" />
         </button>
     </div>
 </nav>
@@ -186,7 +187,7 @@ const menuItems = [
                         <div class="mobile-accordion">
                             <button class="mobile-accordion-btn w-full flex items-center justify-between px-4 py-3 rounded-lg text-white/80 font-semibold text-sm hover:bg-white/10 hover:text-white transition-colors">
                                 {item.label}
-                                <i class="ph ph-caret-down text-xs transition-transform duration-300" />
+                                <Icon name="ph:caret-down" class="text-xs transition-transform duration-300" />
                             </button>
                             <div class="mobile-accordion-content hidden px-2 pb-1">
                                 {item.submenu.map((sub) => (
@@ -306,7 +307,7 @@ const menuItems = [
     document.querySelectorAll(".mobile-accordion").forEach((accordion) => {
         const btn = accordion.querySelector(".mobile-accordion-btn");
         const content = accordion.querySelector(".mobile-accordion-content");
-        const caret = btn?.querySelector("i");
+        const caret = btn?.querySelector("svg");
 
         btn?.addEventListener("click", () => {
             const isOpen = !content?.classList.contains("hidden");
@@ -346,10 +347,14 @@ const menuItems = [
                 e.preventDefault();
 
                 // Close all other dropdowns
-                document.querySelectorAll("[data-dropdown]").forEach((other) => {
-                    other.classList.remove("dropdown-open");
-                    other.querySelector(".dropdown-caret")?.classList.remove("rotate-180");
-                });
+                document
+                    .querySelectorAll("[data-dropdown]")
+                    .forEach((other) => {
+                        other.classList.remove("dropdown-open");
+                        other
+                            .querySelector(".dropdown-caret")
+                            ?.classList.remove("rotate-180");
+                    });
 
                 wrapper.classList.add("dropdown-open");
                 caret?.classList.add("rotate-180");
@@ -363,7 +368,9 @@ const menuItems = [
         if (!(e.target as Element).closest("[data-dropdown]")) {
             document.querySelectorAll("[data-dropdown]").forEach((wrapper) => {
                 wrapper.classList.remove("dropdown-open");
-                wrapper.querySelector(".dropdown-caret")?.classList.remove("rotate-180");
+                wrapper
+                    .querySelector(".dropdown-caret")
+                    ?.classList.remove("rotate-180");
             });
         }
     });

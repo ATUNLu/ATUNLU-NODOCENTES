@@ -1,6 +1,7 @@
 ---
 import Layout from "@layouts/Layout.astro";
 import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
 ---
 
 <Layout title="Afiliación | ATUNLu" isOpaque={true}>
@@ -83,7 +84,7 @@ import { Image } from "astro:assets";
                         <h3
                             class="text-3xl font-black text-atunlu-navy mb-8 flex items-center gap-4"
                         >
-                            <i class="ph ph-info text-atunlu-blue"></i>
+                            <Icon name="ph:info" class="text-atunlu-blue" />
                             Información Importante
                         </h3>
 
@@ -92,9 +93,10 @@ import { Image } from "astro:assets";
                                 <div
                                     class="w-12 h-12 rounded-2xl bg-atunlu-blue/10 flex items-center justify-center shrink-0"
                                 >
-                                    <i
-                                        class="ph ph-hand-coins text-2xl text-atunlu-blue"
-                                    ></i>
+                                    <Icon
+                                        name="ph:hand-coins"
+                                        class="text-2xl text-atunlu-blue"
+                                    />
                                 </div>
                                 <div>
                                     <h4
@@ -115,9 +117,10 @@ import { Image } from "astro:assets";
                                 <div
                                     class="w-12 h-12 rounded-2xl bg-atunlu-blue/10 flex items-center justify-center shrink-0"
                                 >
-                                    <i
-                                        class="ph ph-file-text text-2xl text-atunlu-blue"
-                                    ></i>
+                                    <Icon
+                                        name="ph:file-text"
+                                        class="text-2xl text-atunlu-blue"
+                                    />
                                 </div>
                                 <div>
                                     <h4
@@ -140,9 +143,10 @@ import { Image } from "astro:assets";
                                             href="#"
                                             class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-atunlu-blue text-white font-bold rounded-2xl hover:bg-atunlu-navy transition-all shadow-lg hover:shadow-xl btn-shine"
                                         >
-                                            <i
-                                                class="ph ph-download-simple text-xl"
-                                            ></i>
+                                            <Icon
+                                                name="ph:download-simple"
+                                                class="text-xl"
+                                            />
                                             Descargar Formulario
                                         </a>
                                         <a
@@ -161,9 +165,10 @@ import { Image } from "astro:assets";
                                 <div
                                     class="w-12 h-12 rounded-2xl bg-atunlu-navy/5 flex items-center justify-center shrink-0"
                                 >
-                                    <i
-                                        class="ph ph-check-circle text-2xl text-atunlu-navy/40"
-                                    ></i>
+                                    <Icon
+                                        name="ph:check-circle"
+                                        class="text-2xl text-atunlu-navy/40"
+                                    />
                                 </div>
                                 <p
                                     class="text-sm text-gray-500 italic leading-relaxed"

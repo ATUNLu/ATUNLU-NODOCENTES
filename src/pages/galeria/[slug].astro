@@ -1,0 +1,150 @@
+---
+import Layout from "@layouts/Layout.astro";
+import { galerias, type Galeria } from "@data/galerias";
+import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
+
+export function getStaticPaths() {
+    return galerias.map((galeria) => ({
+        params: { slug: galeria.slug },
+        props: { galeria },
+    }));
+}
+
+interface Props {
+    galeria: Galeria;
+}
+
+const { galeria } = Astro.props;
+
+const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
+    return date
+        .toLocaleDateString("es-ES", {
+            day: "2-digit",
+            month: "long",
+            year: "numeric",
+        })
+        .toUpperCase();
+};
+---
+
+<Layout title={`${galeria.titulo} | Galería Fotográfica`} isOpaque={true}>
+    <section class="py-20 md:py-32 bg-slate-50 min-h-screen">
+        <div class="max-w-7xl mx-auto px-6">
+            {/* Cabecera (Header) */}
+            <div class="mb-12 reveal active">
+                <a
+                    href="/galeria"
+                    class="inline-flex items-center gap-2 text-atunlu-blue font-bold mb-6 md:mb-8 hover:-translate-x-2 transition-transform"
+                >
+                    <Icon name="ph:caret-left" /> Volver a Galerías
+                </a>
+
+                <div
+                    class="flex flex-col md:flex-row md:items-center justify-between gap-6"
+                >
+                    <div class="flex items-center gap-6">
+                        <Image
+                            src={galeria.portada}
+                            alt={`Portada ${galeria.titulo}`}
+                            width={128}
+                            height={128}
+                            class="w-24 h-24 md:w-32 md:h-32 rounded-2xl object-cover shadow-lg hidden sm:block"
+                        />
+                        <div>
+                            <span
+                                class="text-atunlu-blue font-bold text-sm tracking-widest uppercase mb-2 block"
+                            >
+                                {formatDate(galeria.fecha)}
+                            </span>
+                            <h1
+                                class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-atunlu-navy tracking-tight mb-4"
+                              >
+                                {galeria.titulo}
+                            </h1>
+                        </div>
+                    </div>
+                    <div
+                        class="flex items-center gap-2 bg-white px-5 py-3 rounded-2xl shadow-sm border border-gray-100 shrink-0"
+                    >
+                        <Icon name="ph:image" class="text-2xl text-atunlu-blue" />
+                        <span class="font-bold text-gray-600"
+                            >{galeria.fotos.length} Fotografías</span
+                        >
+                    </div>
+                </div>
+            </div>
+
+            {/* Grilla de Fotos */}
+            {
+                galeria.fotos.length > 0 ? (
+                    <div
+                        id="gallery-container"
+                        class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 reveal active"
+                    >
+                        {galeria.fotos.map((foto) => (
+                            <a
+                                href={foto.highres}
+                                data-pswp-width="1920"
+                                data-pswp-height="1080"
+                                target="_blank"
+                                class="group relative overflow-hidden rounded-2xl aspect-square bg-gray-200 cursor-zoom-in block"
+                            >
+                                <Image
+                                    src={foto.thumb}
+                                    alt={foto.alt}
+                                    width={400}
+                                    height={400}
+                                    class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                />
+
+                                {/* Overlay Hover */}
+                                <div class="absolute inset-0 bg-atunlu-navy/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
+                                    <div class="bg-white/90 text-atunlu-navy font-bold px-4 py-2 rounded-full flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                                        <Icon name="ph:arrows-out" class="text-lg" />
+                                        Ampliar
+                                    </div>
+                                </div>
+                            </a>
+                        ))}
+                    </div>
+                ) : (
+                    <div class="py-20 text-center bg-white rounded-3xl border border-gray-100">
+                        <Icon name="ph:camera-slash" class="text-4xl text-gray-300 mb-4 inline-block" />
+                        <h3 class="text-xl font-bold text-gray-500">
+                            Aún no hay fotos en esta galería
+                        </h3>
+                    </div>
+                )
+            }
+        </div>
+    </section>
+</Layout>
+
+<script>
+    import PhotoSwipeLightbox from "photoswipe/lightbox";
+    import "photoswipe/style.css";
+
+    const lightbox = new PhotoSwipeLightbox({
+        gallery: "#gallery-container",
+        children: "a",
+        pswpModule: () => import("photoswipe"),
+    });
+
+    // Inicializar PhotoSwipe
+    lightbox.init();
+</script>
+
+<style>
+    .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s ease-out;
+    }
+    .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+    }
+</style>

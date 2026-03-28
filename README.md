@@ -12,7 +12,9 @@ Sitio web oficial de **ATUNLu** (Asociación de Trabajadores de la Universidad N
 | [TailwindCSS](https://tailwindcss.com) | ^4.2.1 | Framework de estilos utilitarios |
 | [@tailwindcss/typography](https://tailwindcss.com/docs/typography-plugin) | ^0.5.19 | Plugin de tipografía enriquecida para contenido Markdown |
 | [@tailwindcss/vite](https://tailwindcss.com/docs/installation/using-vite) | ^4.2.1 | Integración de TailwindCSS 4 con Vite |
-| [Phosphor Icons](https://phosphoricons.com) | (CDN) | Librería de íconos SVG |
+| [astro-icon](https://github.com/natemoo-re/astro-icon) | ^1.1.5 | Integración oficial de iconos para Astro (SVG en build-time) |
+| [Phosphor Icons](https://phosphoricons.com) | (@iconify-json/ph) | Librería de íconos SVG (empaquetados localmente) |
+| [PhotoSwipe](https://photoswipe.com) | ^5.4.4 | JavaScript image gallery and lightbox library |
 | [Google Fonts — Inter](https://fonts.google.com/specimen/Inter) | (CDN) | Tipografía principal del sitio |
 
 **Requisitos de entorno:**
@@ -47,6 +49,7 @@ Sitio web oficial de **ATUNLu** (Asociación de Trabajadores de la Universidad N
 │   │   ├── Whatsapp.astro           # Botón flotante de WhatsApp
 │   │   ├── SearchNovedades.astro    # Buscador de novedades en tiempo real
 │   │   ├── ShareButton.astro        # Botón para compartir en redes sociales
+│   │   ├── GaleriaCard.astro        # Tarjeta de álbum/galería fotográfica
 │   │   └── Header.astro             # Header alternativo
 │   ├── content/
 │   │   └── novedades/               # Artículos de novedades en formato Markdown
@@ -58,6 +61,7 @@ Sitio web oficial de **ATUNLu** (Asociación de Trabajadores de la Universidad N
 │   │   ├── autoridades.astro        # Página de autoridades (Comisión Directiva)
 │   │   ├── historia/                # Sección Historia de ATUNLu
 │   │   ├── afiliacion/              # Información y formulario de afiliación
+│   │   ├── galeria/                 # Listado y detalle de galerías fotográficas
 │   │   ├── novedades/               # Detalle de cada novedad
 │   │   ├── ultimas-novedades.astro  # Archivo completo de novedades
 │   │   └── ultimas-novedades/       # Rutas dinámicas de novedades
@@ -80,6 +84,7 @@ Sitio web oficial de **ATUNLu** (Asociación de Trabajadores de la Universidad N
 | `/afiliacion` | Información y pasos para afiliarse a ATUNLu |
 | `/ultimas-novedades` | Listado completo de novedades con buscador integrado |
 | `/novedades/[slug]` | Detalle de cada novedad (ruta dinámica) |
+| `/galeria` | Galerías fotográficas de eventos y actividades |
 
 ---
 

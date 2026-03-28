@@ -1,8 +1,10 @@
 ---
+import { Icon } from "astro-icon/components";
+
 const servicios = [
     {
         title: "Turismo",
-        icon: "ph ph-airplane-tilt",
+        icon: "airplane-tilt",
         description:
             "Accedé a nuestros hoteles en las mejores plazas turísticas del país con tarifas diferenciales.",
         link: "#",
@@ -10,7 +12,7 @@ const servicios = [
     },
     {
         title: "Deportes",
-        icon: "ph ph-trophy",
+        icon: "trophy",
         description:
             "Participá de torneos deportivos, olimpiadas y actividades físicas pensadas para el bienestar del afiliado.",
         link: "#",
@@ -18,7 +20,7 @@ const servicios = [
     },
     {
         title: "Cultura",
-        icon: "ph ph-palette",
+        icon: "palette",
         description:
             "Talleres artísticos, eventos culturales y salidas recreativas para fomentar la integración y el ocio.",
         link: "#",
@@ -26,7 +28,7 @@ const servicios = [
     },
     {
         title: "Capacitación",
-        icon: "ph ph-graduation-cap",
+        icon: "graduation-cap",
         description:
             "Formación continua certificada para tu crecimiento profesional dentro de la estructura UNLu.",
         link: "#",
@@ -34,7 +36,7 @@ const servicios = [
     },
     {
         title: "Predio",
-        icon: "ph ph-house",
+        icon: "house",
         description:
             "Nuestro espacio recreativo con pileta, parrillas y salones para el uso exclusivo de la familia nodocente.",
         link: "#",
@@ -42,7 +44,7 @@ const servicios = [
     },
     {
         title: "Convenios",
-        icon: "ph ph-handshake",
+        icon: "handshake",
         description:
             "Descuentos especiales y planes preferenciales en una amplia red de comercios y servicios locales.",
         link: "#",
@@ -50,7 +52,7 @@ const servicios = [
     },
     {
         title: "Beneficios",
-        icon: "ph ph-gift",
+        icon: "gift",
         description:
             "Accedé a subsidios, kits escolares, préstamos y diversos programas de asistencia para el afiliado.",
         link: "#",
@@ -85,8 +87,9 @@ const duplicatedServicios = [...servicios, ...servicios, ...servicios];
                     duplicatedServicios.map((servicio) => (
                         <div class="w-[350px] md:w-[400px] shrink-0 group bg-white/5 border border-white/10 p-10 rounded-[2.5rem] hover:bg-atunlu-blue transition-all duration-500">
                             <div class="w-16 h-16 bg-atunlu-blue group-hover:bg-white rounded-2xl flex items-center justify-center mb-8 transition-colors">
-                                <i
-                                    class={`${servicio.icon} text-3xl text-white group-hover:text-atunlu-blue`}
+                                <Icon
+                                    name={`ph:${servicio.icon}`}
+                                    class="text-3xl text-white group-hover:text-atunlu-blue"
                                 />
                             </div>
                             <h3 class="text-2xl font-bold mb-4">
@@ -100,7 +103,7 @@ const duplicatedServicios = [...servicios, ...servicios, ...servicios];
                                 class="inline-flex items-center gap-2 font-bold text-atunlu-blue group-hover:text-white transition-colors"
                             >
                                 {servicio.linkText}{" "}
-                                <i class="ph ph-arrow-right" />
+                                <Icon name="ph:arrow-right" />
                             </a>
                         </div>
                     ))
