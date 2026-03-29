@@ -3,6 +3,14 @@
 Sitio web oficial de **ATUNLu** (Asociación de Trabajadores de la Universidad Nacional de Luján), sindicato que representa a los trabajadores nodocentes de la UNLu.
 
 ---
+## 📸 Capturas de pantalla
+
+![Hero](.github/assets/screenshots/captura-01.jpg)
+![Novedad](.github/assets/screenshots/captura-02.jpg)
+![Novedades](.github/assets/screenshots/captura-03.jpg)
+![Artículp](.github/assets/screenshots/captura-04.jpg)
+![Galería](.github/assets/screenshots/captura-05.jpg)
+---
 
 ## 🛠 Tecnologías utilizadas
 
