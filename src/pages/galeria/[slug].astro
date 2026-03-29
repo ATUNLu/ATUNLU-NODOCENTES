@@ -5,6 +5,10 @@ import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
 
 export function getStaticPaths() {
+    console.log(
+        "Generating paths for:",
+        galerias.map((g) => g.slug),
+    );
     return galerias.map((galeria) => ({
         params: { slug: galeria.slug },
         props: { galeria },
@@ -61,7 +65,7 @@ const formatDate = (dateString: string) => {
                             </span>
                             <h1
                                 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-atunlu-navy tracking-tight mb-4"
-                              >
+                            >
                                 {galeria.titulo}
                             </h1>
                         </div>
@@ -69,7 +73,10 @@ const formatDate = (dateString: string) => {
                     <div
                         class="flex items-center gap-2 bg-white px-5 py-3 rounded-2xl shadow-sm border border-gray-100 shrink-0"
                     >
-                        <Icon name="ph:image" class="text-2xl text-atunlu-blue" />
+                        <Icon
+                            name="ph:image"
+                            class="text-2xl text-atunlu-blue"
+                        />
                         <span class="font-bold text-gray-600"
                             >{galeria.fotos.length} Fotografías</span
                         >
@@ -103,7 +110,10 @@ const formatDate = (dateString: string) => {
                                 {/* Overlay Hover */}
                                 <div class="absolute inset-0 bg-atunlu-navy/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm">
                                     <div class="bg-white/90 text-atunlu-navy font-bold px-4 py-2 rounded-full flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                                        <Icon name="ph:arrows-out" class="text-lg" />
+                                        <Icon
+                                            name="ph:arrows-out"
+                                            class="text-lg"
+                                        />
                                         Ampliar
                                     </div>
                                 </div>
@@ -112,7 +122,10 @@ const formatDate = (dateString: string) => {
                     </div>
                 ) : (
                     <div class="py-20 text-center bg-white rounded-3xl border border-gray-100">
-                        <Icon name="ph:camera-slash" class="text-4xl text-gray-300 mb-4 inline-block" />
+                        <Icon
+                            name="ph:camera-slash"
+                            class="text-4xl text-gray-300 mb-4 inline-block"
+                        />
                         <h3 class="text-xl font-bold text-gray-500">
                             Aún no hay fotos en esta galería
                         </h3>
@@ -133,6 +146,57 @@ const formatDate = (dateString: string) => {
         pswpModule: () => import("photoswipe"),
     });
 
+    // Detectar dimensiones reales al cargar la imagen para evitar deformación
+    lightbox.on("contentLoad", (e) => {
+        const { content } = e;
+        if (
+            content.type === "image" &&
+            content.data &&
+            typeof content.data.src === "string"
+        ) {
+            const img = new Image();
+            img.src = content.data.src as string;
+            img.onload = () => {
+                if (
+                    img.naturalWidth > 0 &&
+                    (content.width !== img.naturalWidth ||
+                        content.height !== img.naturalHeight)
+                ) {
+                    content.width = img.naturalWidth;
+                    content.height = img.naturalHeight;
+
+                    // @ts-ignore
+                    if (content.pswp) {
+                        // @ts-ignore
+                        content.pswp.refreshSize(true);
+                    }
+                }
+            };
+        }
+    });
+
+    // Detectar dimensiones al cambiar de lámina (navegación con flechas)
+    lightbox.on("change", () => {
+        // @ts-ignore
+        const pswp = lightbox.pswp;
+        if (pswp && pswp.currSlide && pswp.currSlide.content) {
+            const content = pswp.currSlide.content;
+            if (content.type === "image" && content.element) {
+                const img = content.element as HTMLImageElement;
+                if (
+                    img.naturalWidth > 0 &&
+                    (content.width !== img.naturalWidth ||
+                        content.height !== img.naturalHeight)
+                ) {
+                    content.width = img.naturalWidth;
+                    content.height = img.naturalHeight;
+                    // @ts-ignore
+                    pswp.refreshSize(true);
+                }
+            }
+        }
+    });
+
     // Inicializar PhotoSwipe
     lightbox.init();
 </script>
@@ -146,5 +210,10 @@ const formatDate = (dateString: string) => {
     .reveal.active {
         opacity: 1;
         transform: translateY(0);
+    }
+
+    /* Evitar deformación de imágenes en PhotoSwipe pase lo que pase */
+    :global(.pswp__img) {
+        object-fit: contain !important;
     }
 </style>

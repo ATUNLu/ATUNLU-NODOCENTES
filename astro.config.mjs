@@ -11,6 +11,6 @@ export default defineConfig({
     plugins: [tailwindcss()]
   },
   image: {
-    domains: ["images.unsplash.com"]
+    domains: ["media.leandrobarriosdesigner.site"]
   }
 });

@@ -6,13 +6,15 @@ import { galerias } from "@data/galerias";
 import { Icon } from "astro-icon/components";
 
 // Ordenar galerías por fecha (más reciente primero) si se desea
-const sortedGalerias = galerias.sort((a, b) => {
+const sortedGalerias = [...galerias].sort((a, b) => {
     return new Date(b.fecha).getTime() - new Date(a.fecha).getTime();
 });
 ---
 
 <Layout title="Galerías Fotográficas | ATUNLu" isOpaque={true}>
-    <section class="relative overflow-hidden py-20 md:py-32 bg-atunlu-navy min-h-screen">
+    <section
+        class="relative overflow-hidden py-20 md:py-32 bg-atunlu-navy min-h-screen"
+    >
         <div class="relative z-10 max-w-7xl mx-auto px-6">
             <div
                 class="flex flex-col md:flex-row md:items-end justify-between gap-10 mb-16 reveal active"
@@ -29,7 +31,9 @@ const sortedGalerias = galerias.sort((a, b) => {
                     >
                         Galerías Fotográficas
                     </h1>
-                    <p class="text-lg md:text-xl text-gray-400 font-medium text-balance">
+                    <p
+                        class="text-lg md:text-xl text-gray-400 font-medium text-balance"
+                    >
                         Reviví los mejores momentos de nuestros eventos,
                         encuentros y asambleas.
                     </p>
@@ -69,7 +73,7 @@ const sortedGalerias = galerias.sort((a, b) => {
                 src={fondoDark.src}
                 alt=""
                 aria-hidden="true"
-                class="w-full block opacity-20"
+                class="w-full block"
             />
         </div>
     </section>

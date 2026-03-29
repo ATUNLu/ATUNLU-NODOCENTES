@@ -137,6 +137,34 @@ Todos los comandos se ejecutan desde la raíz del proyecto:
 
 ---
 
+## 📸 Sistema de Galería
+
+El sitio cuenta con un sistema de galerías fotográficas dinámico que permite gestionar eventos y visualizarlos de forma fluida.
+
+### 📊 Gestión de Datos
+Las galerías se definen en `src/data/galerias.ts`. Cada objeto sigue la interfaz `Galeria`:
+- **slug**: Identificador único para la URL.
+- **titulo**: Nombre del evento o actividad.
+- **fecha**: Fecha del evento (formato `YYYY-MM-DD`).
+- **portada**: URL absoluta de la imagen de previsualización.
+- **fotos**: Array de objetos con `thumb` (miniatura), `highres` (alta resolución) y `alt` (texto descriptivo).
+
+### 🔗 Rutas Dinámicas
+El sistema utiliza el sistema de rutas de Astro para generar las páginas:
+- `/galeria`: Lista todas las galerías disponibles usando el componente `GaleriaCard`.
+- `/galeria/[slug]`: Genera una página individual para cada galería mediante `getStaticPaths`, inyectando los datos correspondientes.
+
+### 🖼️ Visualización (PhotoSwipe)
+Para la visualización de imágenes se utiliza **PhotoSwipe v5**, con las siguientes características:
+- **Carga Diferida**: Las imágenes en alta resolución se cargan solo al abrir el lightbox.
+- **Detección Automática de Tamaño**: Incluye scripts para detectar las dimensiones reales (`naturalWidth`/`naturalHeight`) de cada imagen al cargar o navegar, evitando deformaciones visuales.
+- **Seguridad CSS**: Se aplica `object-fit: contain` de forma global en el lightbox para garantizar que la proporción se mantenga en cualquier dispositivo.
+
+### ☁️ Almacenamiento
+Las imágenes están alojadas en un servidor de medios externo (`media.leandrobarriosdesigner.site`), optimizando el peso del repositorio y facilitando la gestión de recursos de alta resolución.
+
+---
+
 ## 📬 Contacto y datos del sindicato
 
 - **Organización:** ATUNLu — Asociación de Trabajadores de la Universidad Nacional de Luján
