@@ -1,8 +1,8 @@
 ---
 import { Icon } from "astro-icon/components";
 import { getCollection } from "astro:content";
-import NovedadCard from "./NovedadCard.astro";
-import fondoNovedad from "../assets/images/fondos/fondo-novedad.svg";
+import NovedadCard from "@components/NovedadCard.astro";
+import fondoNovedad from "@assets/images/fondos/fondo-novedad.svg";
 
 const allNovedades = await getCollection("novedades", ({ data }) => {
     return data.draft !== true;

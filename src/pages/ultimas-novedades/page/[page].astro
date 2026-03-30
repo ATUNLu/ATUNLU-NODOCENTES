@@ -1,8 +1,8 @@
 ---
 import { getCollection } from "astro:content";
-import Layout from "../../../layouts/Layout.astro";
-import NovedadCard from "../../../components/NovedadCard.astro";
-import SearchNovedades from "../../../components/SearchNovedades.astro";
+import Layout from "@layouts/Layout.astro";
+import NovedadCard from "@components/NovedadCard.astro";
+import SearchNovedades from "@components/SearchNovedades.astro";
 import { Icon } from "astro-icon/components";
 
 export async function getStaticPaths({ paginate }: any) {
@@ -108,7 +108,10 @@ const sortedNovedadesForSearch = allNovedades.sort(
                 <div
                     class="inline-flex items-center justify-center w-20 h-20 bg-gray-100 rounded-full mb-6"
                 >
-                    <Icon name="ph:magnifying-glass" class="text-3xl text-gray-400" />
+                    <Icon
+                        name="ph:magnifying-glass"
+                        class="text-3xl text-gray-400"
+                    />
                 </div>
                 <h3 class="text-2xl font-bold text-atunlu-navy mb-2">
                     No se encontraron resultados
