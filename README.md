@@ -1,7 +1,7 @@
 # ATUNLu — Sitio Web Oficial
 
 > [!TIP]
-> **Explora el sitio:** Puedes ver la versión desplegada en [atunlulinks.site](https://atunlulinks.site) (El sitio se encuentra actualmente en desarrollo).
+> **Explora el sitio:** Preview en [atunlu-nodocente.vercel.app](https://atunlu-nodocente.vercel.app) (El sitio se encuentra actualmente en desarrollo).
 
 Sitio web oficial de **ATUNLu** (Asociación de Trabajadores de la Universidad Nacional de Luján), sindicato que representa a los trabajadores nodocentes de la UNLu.
 
