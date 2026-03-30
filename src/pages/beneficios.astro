@@ -1,0 +1,158 @@
+---
+import Layout from "@layouts/Layout.astro";
+import { Icon } from "astro-icon/components";
+
+const beneficios = [
+    {
+        title: "Nacimiento",
+        description:
+            "La Asociación otorga un subsidio por nacimiento de $100.000 por afiliado. Para solicitarlo se debe presentar el certificado de nacimiento correspondiente.",
+        icon: "ph:baby",
+    },
+    {
+        title: "Luna de miel",
+        description:
+            "Los afiliados a A.T.U.N.Lu. cuentan con el beneficio de siete (7) días de luna de miel sin cargo, con media pensión, en el Apart Hotel 17 de Octubre (Villa Giardino, Córdoba). Este beneficio no está disponible en temporada alta.\n\nPara acceder, el afiliado deberá gestionar la solicitud en A.T.U.N.Lu. con la debida anticipación, a fin de que el sindicato la eleve a F.A.T.U.N. con al menos treinta (30) días de antelación. Asimismo, deberá presentar copia del Acta de Matrimonio dentro de las setenta y dos (72) horas posteriores a su celebración.",
+        icon: "ph:heart",
+    },
+    {
+        title: "Casa del Nodocente",
+        description:
+            "Los afiliados que por razones de salud necesiten hospedarse solos o con su familia, disponen del uso gratuito de esta pensión situada en calle Pringles N° 597 de C.A.B.A.\n\nPara acceder a este beneficio se necesita certificado de internación particular o de un familiar. El alojamiento en la Casa del Nodocente debe solicitarse en el Sindicato.",
+        icon: "ph:house-line",
+    },
+    {
+        title: "Asesoría Gremial",
+        description:
+            "Acercate al sindicato o contáctate con nosotros si tenes dudas sobre tu recibo de sueldo, tu licencia, conflictos laborales ú otro.",
+        icon: "ph:users-three",
+    },
+    {
+        title: "Consultas Jurídicas",
+        description:
+            "Aquellos afiliados que necesiten asesoramiento en temas particulares, podrán pasar por el Gremio a retirar la autorización para realizar una consulta en forma gratuita.",
+        icon: "ph:scales",
+    },
+];
+
+const otrosBeneficios = [
+    "Guardapolvos gratuitos",
+    "Obsequios día del niño",
+    "Día de la familia",
+    "Caja navideña",
+    "Ayuda económica",
+];
+---
+
+<Layout title="Beneficios | ATUNLu" isOpaque={true}>
+    <main class="pt-20 overflow-hidden">
+        <!-- Hero Section -->
+        <section class="relative py-24 bg-atunlu-navy overflow-hidden">
+            <div class="absolute inset-0 opacity-10">
+                <div
+                    class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(37,99,235,0.4),transparent_70%)]"
+                >
+                </div>
+            </div>
+            <div class="max-w-7xl mx-auto px-6 relative z-10 text-center">
+                <div
+                    class="inline-block w-20 h-1.5 bg-atunlu-blue rounded-full mb-8 reveal"
+                >
+                </div>
+                <h1
+                    class="text-5xl md:text-7xl font-black text-white leading-[1.1] tracking-tight mb-6 reveal"
+                >
+                    Beneficios
+                </h1>
+                <p
+                    class="text-xl text-blue-100/80 max-w-2xl mx-auto leading-relaxed reveal text-pretty"
+                >
+                    Servicios y prestaciones exclusivas para nuestros afiliados.
+                </p>
+            </div>
+        </section>
+
+        <!-- Main Benefits Grid -->
+        <section class="py-24 bg-white">
+            <div class="max-w-7xl mx-auto px-6">
+                <div
+                    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+                >
+                    {
+                        beneficios.map((b) => (
+                            <div class="flex flex-col bg-gray-50 p-8 rounded-[2.5rem] border border-gray-100 shadow-sm hover:shadow-md transition-all hover:-translate-y-1 reveal">
+                                <div class="w-16 h-16 rounded-2xl bg-atunlu-blue/10 flex items-center justify-center mb-6">
+                                    <Icon
+                                        name={b.icon}
+                                        class="text-3xl text-atunlu-blue"
+                                    />
+                                </div>
+                                <h3 class="text-2xl font-black text-atunlu-navy mb-4">
+                                    {b.title}
+                                </h3>
+                                <p class="text-gray-600 leading-relaxed whitespace-pre-line">
+                                    {b.description}
+                                </p>
+                            </div>
+                        ))
+                    }
+                </div>
+            </div>
+        </section>
+
+        <!-- Others Section -->
+        <section class="py-24 bg-gray-50 border-y border-gray-100">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center mb-16 reveal">
+                    <h2 class="text-4xl font-black text-atunlu-navy">
+                        Otros Beneficios
+                    </h2>
+                    <p class="text-gray-600 mt-4 max-w-2xl mx-auto">
+                        Acompañamos a la familia nodocente en cada momento.
+                    </p>
+                </div>
+
+                <div
+                    class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 reveal"
+                >
+                    {
+                        otrosBeneficios.map((beneficio) => (
+                            <div class="flex items-center gap-4 p-6 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                                <div class="w-12 h-12 bg-atunlu-blue/5 flex items-center justify-center rounded-xl shrink-0">
+                                    <Icon
+                                        name="ph:check-circle"
+                                        class="text-2xl text-atunlu-blue"
+                                    />
+                                </div>
+                                <span class="font-bold text-atunlu-navy text-lg">
+                                    {beneficio}
+                                </span>
+                            </div>
+                        ))
+                    }
+                </div>
+            </div>
+        </section>
+
+        <!-- Final CTA -->
+        <section class="py-24 bg-white">
+            <div class="max-w-4xl mx-auto px-6 text-center reveal">
+                <h2 class="text-3xl font-extrabold text-atunlu-navy mb-8">
+                    ¿Tenés alguna consulta?
+                </h2>
+                <p class="text-xl text-gray-600 mb-10">
+                    Acercate al sindicato para más información sobre cómo
+                    acceder a estos beneficios.
+                </p>
+                <div class="flex flex-wrap justify-center gap-6">
+                    <a
+                        href="/#contacto"
+                        class="px-10 py-5 bg-atunlu-blue text-white font-black rounded-2xl hover:bg-atunlu-navy transition-all transform hover:-translate-y-1 shadow-xl shadow-blue-500/20"
+                    >
+                        Contáctanos
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+</Layout>
