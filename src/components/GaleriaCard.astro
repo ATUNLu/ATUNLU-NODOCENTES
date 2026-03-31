@@ -1,6 +1,5 @@
 ---
 import type { Galeria } from "@data/galerias";
-import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
 
 interface Props {
@@ -31,12 +30,11 @@ const formatDate = (dateString: string) => {
     style={`transition-delay: ${index * 150}ms;`}
 >
     <div class="overflow-hidden relative group h-48 md:h-56">
-        <Image
+        <img
             src={galeria.portada}
-            width={600}
-            height={400}
             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 group-hover/card:scale-110"
             alt={`Portada de la galería: ${galeria.titulo}`}
+            loading="lazy"
         />
         <div
             class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"

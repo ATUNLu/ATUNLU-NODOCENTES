@@ -1,7 +1,6 @@
 ---
 import Layout from "@layouts/Layout.astro";
 import { galerias, type Galeria } from "@data/galerias";
-import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
 
 export function getStaticPaths() {
@@ -50,12 +49,11 @@ const formatDate = (dateString: string) => {
                     class="flex flex-col md:flex-row md:items-center justify-between gap-6"
                 >
                     <div class="flex items-center gap-6">
-                        <Image
+                        <img
                             src={galeria.portada}
                             alt={`Portada ${galeria.titulo}`}
-                            width={128}
-                            height={128}
                             class="w-24 h-24 md:w-32 md:h-32 rounded-2xl object-cover shadow-lg hidden sm:block"
+                            loading="lazy"
                         />
                         <div>
                             <span
@@ -99,12 +97,11 @@ const formatDate = (dateString: string) => {
                                 target="_blank"
                                 class="group relative overflow-hidden rounded-2xl aspect-square bg-gray-200 cursor-zoom-in block"
                             >
-                                <Image
+                                <img
                                     src={foto.thumb}
                                     alt={foto.alt}
-                                    width={400}
-                                    height={400}
                                     class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                    loading="lazy"
                                 />
 
                                 {/* Overlay Hover */}
