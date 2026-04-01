@@ -26,12 +26,12 @@ const formatDate = (date: Date) => {
 ---
 
 <Layout title={`${entry.data.title} | Novedades | ATUNLu`} isOpaque={true}>
-    <article class="pt-32 pb-20 bg-slate-200 min-h-screen">
-        <div class="max-w-4xl mx-auto px-6">
-            <div class="flex items-center justify-between mb-8">
+    <article class="pt-24 md:pt-32 pb-16 md:pb-20 bg-slate-200 min-h-screen">
+        <div class="max-w-4xl mx-auto px-4 md:px-6">
+            <div class="flex items-center justify-between mb-6 md:mb-8">
                 <a
                     href="/#novedades"
-                    class="inline-flex items-center gap-2 text-atunlu-blue font-bold hover:gap-4 transition-all"
+                    class="inline-flex items-center gap-2 text-atunlu-blue font-bold text-sm md:text-base hover:gap-4 transition-all"
                 >
                     <Icon name="ph:caret-left" /> Volver a novedades
                 </a>
@@ -40,43 +40,50 @@ const formatDate = (date: Date) => {
             </div>
 
             <div
-                class="bg-white rounded-[2.5rem] overflow-hidden shadow-sm border border-gray-100"
+                class="bg-white rounded-3xl md:rounded-[2.5rem] overflow-hidden shadow-sm border border-gray-100"
             >
-                <div class="h-[400px] overflow-hidden relative">
+                <!-- Imagen -->
+                <div class="h-[220px] md:h-[400px] overflow-hidden relative">
                     <Image
                         src={entry.data.image}
                         class="w-full h-full object-cover"
                         alt={entry.data.imageAlt}
                     />
                     <span
-                        class="absolute bottom-10 left-10 bg-atunlu-blue text-white px-6 py-2 rounded-full text-sm font-black uppercase"
+                        class="absolute bottom-4 md:bottom-10 left-4 md:left-10 bg-atunlu-blue text-white px-4 md:px-6 py-1.5 md:py-2 rounded-full text-xs md:text-sm font-black uppercase"
                     >
                         {entry.data.category}
                     </span>
                 </div>
 
-                <div class="p-10 md:p-16">
-                    <time class="text-sm font-bold text-gray-400 block mb-4">
+                <!-- Contenido -->
+                <div class="p-6 md:p-16">
+                    <time
+                        class="text-xs md:text-sm font-bold text-gray-400 block mb-3 md:mb-4"
+                    >
                         {formatDate(entry.data.date)}
                     </time>
 
                     <h1
-                        class="text-4xl md:text-5xl font-extrabold text-atunlu-navy mb-8 leading-tight"
+                        class="text-2xl sm:text-3xl md:text-5xl font-extrabold text-atunlu-navy mb-6 md:mb-8 leading-snug md:leading-tight text-pretty"
                     >
                         {entry.data.title}
                     </h1>
 
                     {
                         entry.data.author && (
-                            <div class="flex items-center gap-4 mb-12 pb-8 border-b border-gray-100">
-                                <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center text-atunlu-navy">
-                                    <Icon name="ph:user" class="text-2xl" />
+                            <div class="flex items-center gap-3 md:gap-4 mb-8 md:mb-12 pb-6 md:pb-8 border-b border-gray-100">
+                                <div class="w-10 h-10 md:w-12 md:h-12 bg-gray-100 rounded-full flex items-center justify-center text-atunlu-navy">
+                                    <Icon
+                                        name="ph:user"
+                                        class="text-xl md:text-2xl"
+                                    />
                                 </div>
                                 <div>
-                                    <p class="text-xs font-bold text-gray-400 uppercase tracking-wider">
+                                    <p class="text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-wider">
                                         Autor
                                     </p>
-                                    <p class="font-bold text-atunlu-navy">
+                                    <p class="font-bold text-sm md:text-base text-atunlu-navy">
                                         {entry.data.author}
                                     </p>
                                 </div>
@@ -84,11 +91,14 @@ const formatDate = (date: Date) => {
                         )
                     }
 
+                    <!-- Prose optimizado -->
                     <div
-                        class="prose prose-lg prose-slate max-w-none
-                        prose-headings:text-atunlu-navy prose-headings:font-bold
-                        prose-a:text-atunlu-blue prose-strong:text-atunlu-navy
-                        prose-custom"
+                        class="prose prose-base md:prose-lg max-w-none
+                    prose-headings:text-atunlu-navy prose-headings:font-bold
+                    prose-a:text-atunlu-blue prose-strong:text-atunlu-navy
+                    prose-p:leading-relaxed md:prose-p:leading-loose
+                    prose-li:leading-relaxed
+                    prose-custom"
                     >
                         <Content />
                     </div>
