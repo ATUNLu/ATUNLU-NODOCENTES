@@ -3,6 +3,7 @@ import { Icon } from "astro-icon/components";
 import { getCollection } from "astro:content";
 import NovedadCard from "@components/NovedadCard.astro";
 import fondoNovedad from "@assets/images/fondos/fondo-novedad.svg";
+import notaCentral from "@assets/images/novedades/nota-central/nota-central.jpg";
 
 const allNovedades = await getCollection("novedades", ({ data }) => {
     return data.draft !== true;
@@ -12,6 +13,13 @@ const allNovedades = await getCollection("novedades", ({ data }) => {
 const latestNovedades = allNovedades
     .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
     .slice(0, 3);
+
+const featuredNovedad = latestNovedades[0]
+    ? {
+          ...latestNovedades[0],
+          data: { ...latestNovedades[0].data, image: notaCentral },
+      }
+    : null;
 ---
 
 <section
@@ -41,10 +49,10 @@ const latestNovedades = allNovedades
 
         <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6">
             {
-                latestNovedades[0] && (
+                featuredNovedad && (
                     <div class="lg:col-span-8">
                         <NovedadCard
-                            novedad={latestNovedades[0]}
+                            novedad={featuredNovedad}
                             index={0}
                             isFeatured={true}
                         />
