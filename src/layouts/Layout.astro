@@ -6,13 +6,19 @@ import HeaderAtunlu from "@components/HeaderAtunlu.astro";
 
 interface Props {
 	title?: string;
+	description?: string;
+	image?: string;
 	isOpaque?: boolean;
 }
 
 const {
 	title = "ATUNLu | Sindicato de Trabajadores Nodocentes UNLu",
+	description = "Sitio oficial del Sindicato de Trabajadores Nodocentes de la Universidad Nacional de Luján.",
+	image = "/og-image.jpg",
 	isOpaque = false,
 } = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!doctype html>
@@ -20,10 +26,29 @@ const {
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
+
+		<!-- Favicon -->
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
+
+		<!-- SEO básico -->
 		<title>{title}</title>
+		<meta name="description" content={description} />
+		<link rel="canonical" href={canonicalURL} />
+
+		<!-- Open Graph (Facebook, WhatsApp, LinkedIn) -->
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={canonicalURL} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={new URL(image, Astro.site)} />
+		<meta property="og:locale" content="es_AR" />
+		<meta property="og:site_name" content="ATUNLu" />
+
+		<!-- Twitter Card -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={new URL(image, Astro.site)} />
 
 		<!-- Google Fonts -->
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -32,6 +57,8 @@ const {
 			href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap"
 			rel="stylesheet"
 		/>
+
+		<meta name="generator" content={Astro.generator} />
 	</head>
 	<body class="antialiased text-gray-900 bg-white">
 		<HeaderAtunlu isOpaque={isOpaque} />
