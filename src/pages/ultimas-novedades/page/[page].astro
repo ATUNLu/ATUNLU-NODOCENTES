@@ -123,20 +123,22 @@ const sortedNovedadesForSearch = allNovedades.sort(
 
             <div
                 id="novedades-pagination"
-                class="mt-20 flex justify-center items-center gap-8 reveal active"
+                class="mt-12 md:mt-20 flex flex-wrap justify-center items-center gap-4 md:gap-8 reveal active"
             >
                 {
                     prevUrl && (
                         <a
                             href={prevUrl}
-                            class="flex items-center gap-2 px-8 py-4 bg-white rounded-full text-atunlu-navy font-bold border border-gray-100 shadow-sm hover:shadow-md transition-all"
+                            class="flex items-center gap-2 px-6 md:px-8 py-3 md:py-4 text-sm md:text-base bg-white rounded-full text-atunlu-navy font-bold border border-gray-100 shadow-sm hover:shadow-md transition-all"
                         >
                             <Icon name="ph:caret-left" /> Anterior
                         </a>
                     )
                 }
 
-                <span class="text-gray-400 font-bold">
+                <span
+                    class="text-sm md:text-base text-gray-400 font-bold order-first w-full text-center md:order-0 md:w-auto md:mb-0 mb-2"
+                >
                     Página <span class="text-atunlu-navy"
                         >{page.currentPage}</span
                     > de {page.lastPage}
@@ -146,7 +148,7 @@ const sortedNovedadesForSearch = allNovedades.sort(
                     page.url.next && (
                         <a
                             href={page.url.next}
-                            class="flex items-center gap-2 px-8 py-4 bg-atunlu-navy rounded-full text-white font-bold shadow-lg shadow-atunlu-navy/20 hover:scale-105 transition-all"
+                            class="flex items-center gap-2 px-6 md:px-8 py-3 md:py-4 text-sm md:text-base bg-atunlu-navy rounded-full text-white font-bold shadow-lg shadow-atunlu-navy/20 hover:scale-105 transition-all"
                         >
                             Siguiente <Icon name="ph:caret-right" />
                         </a>
