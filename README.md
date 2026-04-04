@@ -26,7 +26,7 @@ Sitio web oficial de **ATUNLu** (Asociación de Trabajadores de la Universidad N
 | [astro-icon](https://github.com/natemoo-re/astro-icon) | ^1.1.5 | Integración oficial de iconos para Astro (SVG en build-time) |
 | [Phosphor Icons](https://phosphoricons.com) | (@iconify-json/ph) | Librería de íconos SVG (empaquetados localmente) |
 | [PhotoSwipe](https://photoswipe.com) | ^5.4.4 | JavaScript image gallery and lightbox library |
-| [Google Fonts — Inter](https://fonts.google.com/specimen/Inter) | (CDN) | Tipografía principal del sitio |
+| [Inter Font](https://rsms.me/inter/) | (Self-hosted) | Tipografía principal del sitio (6 pesos, formato WOFF2) |
 
 **Requisitos de entorno:**
 - Node.js `>= 22.12.0`
@@ -44,6 +44,7 @@ Sitio web oficial de **ATUNLu** (Asociación de Trabajadores de la Universidad N
 │   ├── assets/
 │   │   ├── images/          # Imágenes del sitio (novedades, institución, etc.)
 │   │   │   └── iconos/      # Iconos de redes sociales y logos
+│   │   ├── fonts/           # Fuentes locales (Inter WOFF2)
 │   │   ├── background.svg
 │   │   └── whatsapp.svg
 │   ├── components/
