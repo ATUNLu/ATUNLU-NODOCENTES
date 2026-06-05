@@ -1,0 +1,141 @@
+---
+import { Icon } from "astro-icon/components";
+const fechaOrigen = "2025-10-21";
+---
+
+<div
+  id="popup-universitario-overlay"
+  data-fecha-origen={fechaOrigen}
+  class="popup-hidden fixed inset-0 z-60 flex items-center justify-center bg-slate-900/60 backdrop-blur-xs p-4 transition-all duration-500 ease-out"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Alerta de Financiamiento Universitario"
+>
+  <!-- Tarjeta del Modal -->
+  <div
+    id="popup-universitario-card"
+    class="bg-white border border-blue-100 shadow-2xl rounded-lg p-8 md:p-10 max-w-md w-full relative transition-all duration-500 ease-out transform scale-95 opacity-0"
+  >
+    <!-- Botón de Cierre -->
+    <button
+      id="popup-cerrar-btn"
+      class="absolute top-6 right-6 p-2 text-gray-400 hover:text-atunlu-navy bg-gray-50 hover:bg-gray-100 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-atunlu-blue/30 cursor-pointer"
+      aria-label="Cerrar alerta"
+    >
+      <Icon name="ph:x" class="w-6 h-6" />
+    </button>
+
+    <!-- Contenido del Mensaje -->
+    <div class="flex flex-col items-center text-center mt-4">
+      <!-- Icono de Advertencia -->
+      <div class="w-16 h-16 rounded-full bg-red-50 flex items-center justify-center text-red-500 mb-6">
+        <Icon name="ph:warning-octagon" class="w-8 h-8" />
+      </div>
+
+      <!-- Contador de Días -->
+      <span id="popup-dias-contador" class="text-6xl font-black text-red-600 tracking-tight mb-4 animate-pulse-slow">
+        --
+      </span>
+
+      <!-- Mensaje Descriptivo -->
+      <p class="text-atunlu-navy font-bold text-lg md:text-xl leading-snug max-w-xs text-balance">
+        Días sin aplicar la Ley de Financiamiento Universitario
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+  function initPopup() {
+    const overlay = document.getElementById("popup-universitario-overlay");
+    const card = document.getElementById("popup-universitario-card");
+    const closeBtn = document.getElementById("popup-cerrar-btn");
+    const counter = document.getElementById("popup-dias-contador");
+
+    if (!overlay || !card || !closeBtn || !counter) return;
+
+    // Verificar si ya fue cerrado en esta sesión
+    const isClosed = sessionStorage.getItem("popup-universitario-cerrado");
+    if (isClosed === "true") return;
+
+    // Calcular días dinámicamente
+    const fechaOrigenStr = overlay.dataset.fechaOrigen;
+    if (fechaOrigenStr) {
+      const parts = fechaOrigenStr.split("-");
+      const year = parseInt(parts[0], 10);
+      const month = parseInt(parts[1], 10) - 1; // 0-indexed en JS
+      const day = parseInt(parts[2], 10);
+
+      const startDate = new Date(year, month, day);
+      const today = new Date();
+      const current = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+
+      const diffTime = current.getTime() - startDate.getTime();
+      const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+      counter.textContent = diffDays.toString();
+    }
+
+    // Función de cierre
+    const cerrarModal = () => {
+      card.classList.remove("scale-100", "opacity-100");
+      card.classList.add("scale-95", "opacity-0");
+      overlay.classList.remove("popup-visible");
+      overlay.classList.add("popup-hidden");
+      sessionStorage.setItem("popup-universitario-cerrado", "true");
+    };
+
+    // Mostrar casi instantáneamente (100ms para permitir transición CSS suave)
+    setTimeout(() => {
+      overlay.classList.remove("popup-hidden");
+      overlay.classList.add("popup-visible");
+      
+      requestAnimationFrame(() => {
+        card.classList.remove("scale-95", "opacity-0");
+        card.classList.add("scale-100", "opacity-100");
+      });
+    }, 100);
+
+    // Eventos de cierre
+    closeBtn.addEventListener("click", cerrarModal);
+
+    // Cerrar al hacer clic en el fondo
+    overlay.addEventListener("click", (e) => {
+      if (e.target === overlay) {
+        cerrarModal();
+      }
+    });
+  }
+
+  // Inicializar en la carga inicial y también con las transiciones de Astro (si se habilitan)
+  initPopup();
+  document.addEventListener("astro:page-load", initPopup);
+</script>
+
+<style>
+  /* Clases de utilidad para el overlay */
+  .popup-hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .popup-visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Animación suave para el número */
+  @keyframes pulse-slow {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.03);
+    }
+  }
+
+  .animate-pulse-slow {
+    display: inline-block;
+    animation: pulse-slow 3s infinite ease-in-out;
+  }
+</style>

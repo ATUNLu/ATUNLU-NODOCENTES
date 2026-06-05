@@ -3,6 +3,7 @@ import "@styles/global.css";
 import Footer from "@components/Footer.astro";
 import Whatsapp from "@components/Whatsapp.astro";
 import HeaderAtunlu from "@components/HeaderAtunlu.astro";
+import AlertaFinanciamiento from "@components/AlertaFinanciamiento.astro";
 
 interface Props {
 	title?: string;
@@ -65,6 +66,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 		</main>
 		<Footer />
 		<Whatsapp />
+		<AlertaFinanciamiento />
 		<script>
 			// Reveal on scroll logic
 			const observer = new IntersectionObserver(
